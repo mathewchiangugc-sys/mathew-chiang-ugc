@@ -537,18 +537,18 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 const VIDEOS = [
-  { brand: 'HolaFly', cat: 'Travel', meta: 'Talking head · B-roll', livid: 'NW4XdUfqY_97', thumb: 'assets/thumbs/holafly.jpg' },
-  { brand: 'Flashfood', cat: 'Food / Lifestyle', meta: 'Talking head · B-roll', livid: 'X_1b2zAxz9Um', thumb: 'assets/thumbs/flashfood.jpg' },
-  { brand: 'Constant Contact', cat: 'SaaS', meta: 'Talking head · subs', livid: 'FNkXO7lkhPMH', thumb: 'assets/thumbs/constant-contact-2.jpg' },
-  { brand: 'Axel AI', cat: 'Tech', meta: 'B-roll · voiceover', livid: 'H1tWDlsT9nbC', thumb: 'assets/thumbs/axel-ai.jpg' },
-  { brand: 'KiloCode', cat: 'Tech', meta: 'Talking head · product demo', livid: '_mHs2v7ED7Dl', thumb: 'assets/thumbs/kilocode.jpg' },
-  { brand: 'vFlat Scan', cat: 'Tech', meta: 'Talking head · product demo', livid: 'DWi4MELLKCnt', thumb: 'assets/thumbs/vflat.jpg' },
-  { brand: 'Constant Contact', cat: 'SaaS', meta: 'UGC · product demo', livid: 'BrACFOf5w0Ag', thumb: 'assets/thumbs/constant-contact-1.jpg' },
-  { brand: 'Marblism', cat: 'Tech', meta: 'Talking head · product demo', livid: 'IWRJv_sSno3x', thumb: 'assets/thumbs/marblism.jpg' },
-  { brand: 'Proats', cat: 'Food / Lifestyle', meta: 'Talking head · B-roll', livid: 'XuRH8vK-OK5e', thumb: 'assets/thumbs/proats.jpg' },
-  { brand: 'Wonderdog', cat: 'Lifestyle', meta: 'Talking head · captions', livid: 'RotbGVxmYshI', thumb: 'assets/thumbs/wonderdog.jpg' },
-  { brand: 'GoMoWorld', cat: 'Travel', meta: 'Talking head · B-roll', livid: 'G8vVQD5Rktb3', thumb: 'assets/thumbs/gomoworld.jpg' },
-  { brand: 'Interac Debit', cat: 'Finance', meta: 'UGC · talking head', livid: 'oEMhv5ihChgp', thumb: 'assets/thumbs/interac.jpg' },
+  { brand: 'HolaFly', cat: 'Travel', type: ['Talking head', 'B-roll'], meta: 'Talking head · B-roll', livid: 'NW4XdUfqY_97', thumb: 'assets/thumbs/holafly.jpg' },
+  { brand: 'Flashfood', cat: 'Food / Lifestyle', type: ['Talking head', 'B-roll'], meta: 'Talking head · B-roll', livid: 'X_1b2zAxz9Um', thumb: 'assets/thumbs/flashfood.jpg' },
+  { brand: 'Constant Contact', cat: 'SaaS', type: ['Talking head'], meta: 'Talking head · subs', livid: 'FNkXO7lkhPMH', thumb: 'assets/thumbs/constant-contact-2.jpg' },
+  { brand: 'Axel AI', cat: 'Tech', type: ['B-roll', 'Voiceover'], meta: 'B-roll · voiceover', livid: 'H1tWDlsT9nbC', thumb: 'assets/thumbs/axel-ai.jpg' },
+  { brand: 'KiloCode', cat: 'Tech', type: ['Talking head', 'Product demo'], meta: 'Talking head · product demo', livid: '_mHs2v7ED7Dl', thumb: 'assets/thumbs/kilocode.jpg' },
+  { brand: 'vFlat Scan', cat: 'Tech', type: ['Talking head', 'Product demo'], meta: 'Talking head · product demo', livid: 'DWi4MELLKCnt', thumb: 'assets/thumbs/vflat.jpg' },
+  { brand: 'Constant Contact', cat: 'SaaS', type: ['Product demo'], meta: 'UGC · product demo', livid: 'BrACFOf5w0Ag', thumb: 'assets/thumbs/constant-contact-1.jpg' },
+  { brand: 'Marblism', cat: 'Tech', type: ['Talking head', 'Product demo'], meta: 'Talking head · product demo', livid: 'IWRJv_sSno3x', thumb: 'assets/thumbs/marblism.jpg' },
+  { brand: 'Proats', cat: 'Food / Lifestyle', type: ['Talking head', 'B-roll'], meta: 'Talking head · B-roll', livid: 'XuRH8vK-OK5e', thumb: 'assets/thumbs/proats.jpg' },
+  { brand: 'Wonderdog', cat: 'Lifestyle', type: ['Talking head'], meta: 'Talking head · captions', livid: 'RotbGVxmYshI', thumb: 'assets/thumbs/wonderdog.jpg' },
+  { brand: 'GoMoWorld', cat: 'Travel', type: ['Talking head', 'B-roll'], meta: 'Talking head · B-roll', livid: 'G8vVQD5Rktb3', thumb: 'assets/thumbs/gomoworld.jpg' },
+  { brand: 'Interac Debit', cat: 'Finance', type: ['Talking head'], meta: 'UGC · talking head', livid: 'oEMhv5ihChgp', thumb: 'assets/thumbs/interac.jpg' },
 ];
 
 const BRANDS = ['Interac Debit', 'HolaFly', 'Flashfood', 'Korean Air', 'Manus', 'Pelvini', 'West Paw', 'Proats', 'Wonderdog', 'Luma', 'Zwilling', 'JobWizard.ai', 'vFlat', 'KiloCode', 'GoMoWorld', 'Constant Contact', 'Marblism', 'Storylane', 'Okanagan Hound', 'Tavendi', 'Axel AI', 'notta AI', 'HeartMoments', 'ScoreGO'];
@@ -887,16 +887,9 @@ class Component extends DCLogic {
   };
 
   renderVals() {
-    const bucketOf = (v) => {
-      if (v.slot) return 'Open';
-      if (v.cat.indexOf('Tech') >= 0 || v.cat.indexOf('SaaS') >= 0) return 'Tech';
-      if (v.cat.indexOf('Lifestyle') >= 0) return 'Lifestyle';
-      if (v.cat.indexOf('Finance') >= 0) return 'Finance';
-      if (v.cat.indexOf('Sports') >= 0 || v.cat.indexOf('Travel') >= 0) return 'Sports & travel';
-      return 'Other';
-    };
+    const TYPES = ['Talking head', 'B-roll', 'Voiceover', 'Product demo'];
     const activeFilter = this.state.filter;
-    const shown = VIDEOS.filter((v) => activeFilter === 'All' ? true : bucketOf(v) === activeFilter);
+    const shown = VIDEOS.filter((v) => activeFilter === 'All' ? true : (v.type || []).indexOf(activeFilter) >= 0);
     const videos = shown.map((v, i) => {
       const playUrl = v.livid
         ? 'https://livid.com/embed/' + v.livid + '?autoplay=1'
@@ -921,8 +914,8 @@ class Component extends DCLogic {
       };
     });
     const counts = {};
-    VIDEOS.forEach((v) => { const b = bucketOf(v); counts[b] = (counts[b] || 0) + 1; });
-    const filters = ['All', 'Tech', 'Lifestyle', 'Finance', 'Sports & travel'].map((label) => {
+    TYPES.forEach((t) => { counts[t] = VIDEOS.filter((v) => (v.type || []).indexOf(t) >= 0).length; });
+    const filters = ['All'].concat(TYPES).map((label) => {
       const isActive = activeFilter === label;
       return {
         label: label,
