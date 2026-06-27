@@ -188,7 +188,8 @@
 
       <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap:clamp(14px, 2vw, 22px); animation:{{ gridAnim }}">
         <sc-for list="{{ videos }}" as="v" hint-placeholder-count="16">
-          <div data-rv="pop" data-rv-delay="{{ v.delay }}" style="position:relative; aspect-ratio:9/16; border-radius:18px; overflow:hidden; background:#3c4a36; border:1px solid rgba(255,253,246,0.08); transition:transform 240ms cubic-bezier(0.22,1,0.36,1), box-shadow 240ms cubic-bezier(0.22,1,0.36,1)" style-hover="transform:translateY(-5px); box-shadow:0 18px 40px rgba(0,0,0,0.3)">
+          <div data-rv="pop" data-rv-delay="{{ v.delay }}" style="display:flex; flex-direction:column; gap:8px">
+            <div style="position:relative; aspect-ratio:9/16; border-radius:18px; overflow:hidden; background:#3c4a36; border:1px solid rgba(255,253,246,0.08); transition:transform 240ms cubic-bezier(0.22,1,0.36,1), box-shadow 240ms cubic-bezier(0.22,1,0.36,1)" style-hover="transform:translateY(-5px); box-shadow:0 18px 40px rgba(0,0,0,0.3)">
               <sc-if value="{{ v.playing }}" hint-placeholder-val="{{ false }}">
                 <iframe src="{{ v.playUrl }}" title="{{ v.brand }}" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture; playsinline" allowfullscreen style="position:absolute; inset:0; width:100%; height:100%; border:none"></iframe>
                 <button onClick="{{ v.onStop }}" aria-label="Close video" style="position:absolute; top:10px; right:10px; z-index:10; width:36px; height:36px; border-radius:50%; background:rgba(31,27,20,0.55); border:1px solid rgba(255,253,246,0.3); color:#fffdf6; font-size:15px; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; transition:background 200ms" style-hover="background:rgba(31,27,20,0.85)">✕</button>
@@ -215,6 +216,26 @@
                   </div>
                 </div>
               </sc-if>
+            </div>
+            <sc-if value="{{ v.hasThinking }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ v.onToggleThinking }}" style="display:flex; align-items:center; justify-content:space-between; background:rgba(213,123,82,0.12); border:1px solid #d57b52; border-radius:999px; padding:9px 16px; cursor:pointer; color:#fffdf6; font-family:'Albert Sans',sans-serif; font-size:12.5px; font-weight:600; transition:background 200ms" style-hover="background:rgba(213,123,82,0.25)">The thinking <span style="color:#e29876; margin-left:8px">{{ v.thinkingChevron }}</span></button>
+              <sc-if value="{{ v.thinkingOpen }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#fffaf1; border-radius:16px; padding:16px 18px; animation:menu-fade-in 240ms cubic-bezier(0.22,1,0.36,1) both">
+                  <div style="margin-bottom:12px">
+                    <p style="margin:0 0 2px; font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#c56138">The brief</p>
+                    <p style="margin:0; font-size:13.5px; line-height:1.5; color:#3a3328">{{ v.brief }}</p>
+                  </div>
+                  <div style="margin-bottom:12px">
+                    <p style="margin:0 0 2px; font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#c56138">The angle I chose</p>
+                    <p style="margin:0; font-size:13.5px; line-height:1.5; color:#3a3328">{{ v.angle }}</p>
+                  </div>
+                  <div>
+                    <p style="margin:0 0 2px; font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#c56138">The execution</p>
+                    <p style="margin:0; font-size:13.5px; line-height:1.5; color:#3a3328">{{ v.exec }}</p>
+                  </div>
+                </div>
+              </sc-if>
+            </sc-if>
           </div>
         </sc-for>
       </div>
@@ -546,10 +567,10 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 const VIDEOS = [
-  { brand: 'HolaFly', genre: 'Travel', type: ['Talking head', 'B-roll'], meta: 'Talking head · B-roll', livid: 'NW4XdUfqY_97', thumb: 'assets/thumbs/holafly.jpg' },
-  { brand: 'Flashfood', genre: 'Lifestyle', type: ['Talking head', 'B-roll'], meta: 'Talking head · B-roll', livid: 'X_1b2zAxz9Um', thumb: 'assets/thumbs/flashfood.jpg' },
-  { brand: 'Constant Contact', genre: 'Tech', type: ['Talking head'], meta: 'Talking head · subs', livid: 'FNkXO7lkhPMH', thumb: 'assets/thumbs/constant-contact-2.jpg' },
-  { brand: 'Axel AI', genre: 'Tech', type: ['B-roll', 'Voiceover'], meta: 'B-roll · voiceover', livid: 'H1tWDlsT9nbC', thumb: 'assets/thumbs/axel-ai.jpg' },
+  { brand: 'HolaFly', genre: 'Travel', type: ['Talking head', 'B-roll'], meta: 'Talking head · B-roll', livid: 'NW4XdUfqY_97', thumb: 'assets/thumbs/holafly.jpg', thinking: { brief: 'Show travellers how fast you get connected abroad with an eSIM.', angle: "Open on that just-landed, no-signal panic, then fix it on camera. Lead with the pain, not the product.", exec: 'Talking head for the relatable setup, B-roll of the phone connecting as instant proof.' } },
+  { brand: 'Flashfood', genre: 'Lifestyle', type: ['Talking head', 'B-roll'], meta: 'Talking head · B-roll', livid: 'X_1b2zAxz9Um', thumb: 'assets/thumbs/flashfood.jpg', thinking: { brief: 'Make rescued groceries feel normal and smart, not like couponing.', angle: 'Frame it as a savvy-shopper flex, not a coupon. Show the haul and the savings, skip the lecture.', exec: 'Talking head to set up the everyday moment, B-roll of the haul so the savings feel real.' } },
+  { brand: 'Constant Contact', genre: 'Tech', type: ['Talking head'], meta: 'Talking head · subs', livid: 'FNkXO7lkhPMH', thumb: 'assets/thumbs/constant-contact-2.jpg', thinking: { brief: 'Make it easier for small-business owners to stay in touch with their customers through marketing.', angle: 'Speak as the overwhelmed owner who found it easier than expected. Peer to peer, not a sales pitch.', exec: 'Straight talking head with on-screen captions so the key features land even on mute.' } },
+  { brand: 'Axel AI', genre: 'Tech', type: ['B-roll', 'Voiceover'], meta: 'B-roll · voiceover', livid: 'H1tWDlsT9nbC', thumb: 'assets/thumbs/axel-ai.jpg', thinking: { brief: 'Introduce an AI assistant and show the features that make everyday tasks easier.', angle: 'Let the product visuals lead and use voiceover to carry the value. Clarity over personality here.', exec: 'Clean B-roll of the tool in action, with a tight voiceover written to match each on-screen moment.' } },
   { brand: 'KiloCode', genre: 'Tech', type: ['Talking head', 'Product demo'], meta: 'Talking head · product demo', livid: '_mHs2v7ED7Dl', thumb: 'assets/thumbs/kilocode.jpg' },
   { brand: 'vFlat Scan', genre: 'Tech', type: ['Talking head', 'Product demo'], meta: 'Talking head · product demo', livid: 'DWi4MELLKCnt', thumb: 'assets/thumbs/vflat.jpg' },
   { brand: 'Constant Contact', genre: 'Tech', type: ['Product demo'], meta: 'UGC · product demo', livid: 'BrACFOf5w0Ag', thumb: 'assets/thumbs/constant-contact-1.jpg' },
@@ -563,7 +584,7 @@ const VIDEOS = [
 const BRANDS = ['Interac Debit', 'HolaFly', 'Flashfood', 'Korean Air', 'Manus', 'Pelvini', 'West Paw', 'Proats', 'Wonderdog', 'Luma', 'Zwilling', 'JobWizard.ai', 'vFlat', 'KiloCode', 'GoMoWorld', 'Constant Contact', 'Marblism', 'Storylane', 'Okanagan Hound', 'Tavendi', 'Axel AI', 'notta AI', 'HeartMoments', 'ScoreGO'];
 
 class Component extends DCLogic {
-  state = { copied: false, playing: {}, introOn: true, introPct: 0, introLift: false, clock: '', hoverTile: null, heroSlide: 0, compact: false, menuOpen: false, filter: 'All', genreFilter: 'All', gridFlip: false, lightbox: null };
+  state = { copied: false, playing: {}, introOn: true, introPct: 0, introLift: false, clock: '', hoverTile: null, heroSlide: 0, compact: false, menuOpen: false, filter: 'All', genreFilter: 'All', expandedThinking: {}, gridFlip: false, lightbox: null };
 
   HERO_SLOTS = ['hero-slide-1', 'hero-slide-2', 'hero-slide-3'];
 
@@ -903,6 +924,7 @@ class Component extends DCLogic {
     const matchesFormat = (v) => activeFilter === 'All' || (v.type || []).indexOf(activeFilter) >= 0;
     const matchesGenre = (v) => activeGenre === 'All' || v.genre === activeGenre;
     const pickGenre = (label) => this.setState((s) => ({ genreFilter: label, gridFlip: !s.gridFlip }));
+    const toggleThinking = (key) => this.setState((s) => ({ expandedThinking: Object.assign({}, s.expandedThinking, { [key]: !s.expandedThinking[key] }) }));
     const shown = VIDEOS.filter((v) => matchesFormat(v) && matchesGenre(v));
     const videos = shown.map((v, i) => {
       const playUrl = v.livid
@@ -914,6 +936,13 @@ class Component extends DCLogic {
         brand: v.brand,
         genre: v.genre,
         onGenrePick: (e) => { e.stopPropagation(); pickGenre(v.genre); },
+        hasThinking: !!v.thinking,
+        thinkingOpen: !!(v.thinking && this.state.expandedThinking[v.livid]),
+        thinkingChevron: (v.thinking && this.state.expandedThinking[v.livid]) ? '⌃' : '⌄',
+        brief: v.thinking ? v.thinking.brief : '',
+        angle: v.thinking ? v.thinking.angle : '',
+        exec: v.thinking ? v.thinking.exec : '',
+        onToggleThinking: v.thinking ? () => toggleThinking(v.livid) : undefined,
         meta: v.meta,
         initial: v.slot ? '+' : v.brand.charAt(0),
         thumb: v.thumb || (v.id ? 'https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg' : null),
