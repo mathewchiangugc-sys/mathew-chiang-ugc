@@ -941,9 +941,10 @@ class Component extends DCLogic {
       return Object.assign({
         label: label,
         count: String(count),
+        keep: label === 'All' || isActive || count > 0,
         onPick: () => this.setState((s) => ({ filter: label, gridFlip: !s.gridFlip })),
       }, styleFor(isActive));
-    });
+    }).filter((f) => f.keep);
     const genreFilters = ['All'].concat(GENRES).map((label) => {
       const isActive = activeGenre === label;
       const count = label === 'All'
@@ -952,9 +953,10 @@ class Component extends DCLogic {
       return Object.assign({
         label: label,
         count: String(count),
+        keep: label === 'All' || isActive || count > 0,
         onPick: () => pickGenre(label),
       }, styleFor(isActive));
-    });
+    }).filter((f) => f.keep);
 
     const half1 = BRANDS.slice(0, 9);
     const half2 = BRANDS.slice(9);
