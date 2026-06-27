@@ -171,10 +171,19 @@
         <span style="font-family:'Caveat',cursive; font-weight:600; font-size:28px; color:#c7d3bd; transform:rotate(-2deg); padding-bottom:8px; white-space:nowrap">tap a tile to play →</span>
       </div>
 
-      <div data-rv="fade" style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:34px">
-        <sc-for list="{{ filters }}" as="f" hint-placeholder-count="5">
-          <button onClick="{{ f.onPick }}" style="font-family:'Albert Sans',sans-serif; font-size:14px; font-weight:600; letter-spacing:0.02em; color:{{ f.color }}; background:{{ f.bg }}; border:1.5px solid {{ f.border }}; padding:11px 22px; border-radius:999px; cursor:pointer; transition:all 240ms cubic-bezier(0.22,1,0.36,1)" style-hover="transform:translateY(-2px); border-color:#e29876" style-active="transform:scale(0.96)">{{ f.label }}<span style="font-family:'JetBrains Mono',monospace; font-size:11px; opacity:0.65; margin-left:8px">{{ f.count }}</span></button>
-        </sc-for>
+      <div data-rv="fade" style="margin-bottom:34px">
+        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:14px">
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,253,246,0.5); margin-right:6px">Format</span>
+          <sc-for list="{{ filters }}" as="f" hint-placeholder-count="5">
+            <button onClick="{{ f.onPick }}" style="font-family:'Albert Sans',sans-serif; font-size:14px; font-weight:600; letter-spacing:0.02em; color:{{ f.color }}; background:{{ f.bg }}; border:1.5px solid {{ f.border }}; padding:11px 22px; border-radius:999px; cursor:pointer; transition:all 240ms cubic-bezier(0.22,1,0.36,1)" style-hover="transform:translateY(-2px); border-color:#e29876" style-active="transform:scale(0.96)">{{ f.label }}<span style="font-family:'JetBrains Mono',monospace; font-size:11px; opacity:0.65; margin-left:8px">{{ f.count }}</span></button>
+          </sc-for>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap">
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,253,246,0.5); margin-right:6px">Genre</span>
+          <sc-for list="{{ genreFilters }}" as="f" hint-placeholder-count="5">
+            <button onClick="{{ f.onPick }}" style="font-family:'Albert Sans',sans-serif; font-size:14px; font-weight:600; letter-spacing:0.02em; color:{{ f.color }}; background:{{ f.bg }}; border:1.5px solid {{ f.border }}; padding:11px 22px; border-radius:999px; cursor:pointer; transition:all 240ms cubic-bezier(0.22,1,0.36,1)" style-hover="transform:translateY(-2px); border-color:#e29876" style-active="transform:scale(0.96)">{{ f.label }}<span style="font-family:'JetBrains Mono',monospace; font-size:11px; opacity:0.65; margin-left:8px">{{ f.count }}</span></button>
+          </sc-for>
+        </div>
       </div>
 
       <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap:clamp(14px, 2vw, 22px); animation:{{ gridAnim }}">
@@ -199,7 +208,7 @@
                   <div style="position:absolute; left:16px; right:16px; bottom:14px; display:flex; flex-direction:column; gap:6px">
                     <span style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:16px; color:#fffdf6">{{ v.brand }}</span>
                     <span style="font-size:12px; color:rgba(255,253,246,0.66)">{{ v.meta }}</span>
-                    <span style="align-self:flex-start; font-size:10px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#fffdf6; background:rgba(213,123,82,0.85); padding:4px 10px; border-radius:999px">{{ v.genre }}</span>
+                    <button onClick="{{ v.onGenrePick }}" style="align-self:flex-start; font-family:'Albert Sans',sans-serif; font-size:10px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#fffdf6; background:rgba(213,123,82,0.85); padding:4px 10px; border:none; border-radius:999px; cursor:pointer; transition:background 200ms" style-hover="background:#d57b52">{{ v.genre }}</button>
                     <sc-if value="{{ v.showNote }}" hint-placeholder-val="{{ false }}">
                       <span style="font-family:'JetBrains Mono',monospace; font-size:10px; color:rgba(255,253,246,0.4); margin-top:4px">video coming soon</span>
                     </sc-if>
@@ -554,7 +563,7 @@ const VIDEOS = [
 const BRANDS = ['Interac Debit', 'HolaFly', 'Flashfood', 'Korean Air', 'Manus', 'Pelvini', 'West Paw', 'Proats', 'Wonderdog', 'Luma', 'Zwilling', 'JobWizard.ai', 'vFlat', 'KiloCode', 'GoMoWorld', 'Constant Contact', 'Marblism', 'Storylane', 'Okanagan Hound', 'Tavendi', 'Axel AI', 'notta AI', 'HeartMoments', 'ScoreGO'];
 
 class Component extends DCLogic {
-  state = { copied: false, playing: {}, introOn: true, introPct: 0, introLift: false, clock: '', hoverTile: null, heroSlide: 0, compact: false, menuOpen: false, filter: 'All', gridFlip: false, lightbox: null };
+  state = { copied: false, playing: {}, introOn: true, introPct: 0, introLift: false, clock: '', hoverTile: null, heroSlide: 0, compact: false, menuOpen: false, filter: 'All', genreFilter: 'All', gridFlip: false, lightbox: null };
 
   HERO_SLOTS = ['hero-slide-1', 'hero-slide-2', 'hero-slide-3'];
 
@@ -888,8 +897,13 @@ class Component extends DCLogic {
 
   renderVals() {
     const TYPES = ['Talking head', 'B-roll', 'Voiceover', 'Product demo'];
+    const GENRES = ['Travel', 'Finance', 'Tech', 'Lifestyle'];
     const activeFilter = this.state.filter;
-    const shown = VIDEOS.filter((v) => activeFilter === 'All' ? true : (v.type || []).indexOf(activeFilter) >= 0);
+    const activeGenre = this.state.genreFilter;
+    const matchesFormat = (v) => activeFilter === 'All' || (v.type || []).indexOf(activeFilter) >= 0;
+    const matchesGenre = (v) => activeGenre === 'All' || v.genre === activeGenre;
+    const pickGenre = (label) => this.setState((s) => ({ genreFilter: label, gridFlip: !s.gridFlip }));
+    const shown = VIDEOS.filter((v) => matchesFormat(v) && matchesGenre(v));
     const videos = shown.map((v, i) => {
       const playUrl = v.livid
         ? 'https://livid.com/embed/' + v.livid + '?autoplay=1'
@@ -899,6 +913,7 @@ class Component extends DCLogic {
       return {
         brand: v.brand,
         genre: v.genre,
+        onGenrePick: (e) => { e.stopPropagation(); pickGenre(v.genre); },
         meta: v.meta,
         initial: v.slot ? '+' : v.brand.charAt(0),
         thumb: v.thumb || (v.id ? 'https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg' : null),
@@ -913,18 +928,32 @@ class Component extends DCLogic {
         delay: (i % 4) * 70,
       };
     });
-    const counts = {};
-    TYPES.forEach((t) => { counts[t] = VIDEOS.filter((v) => (v.type || []).indexOf(t) >= 0).length; });
+    const styleFor = (isActive) => ({
+      color: isActive ? '#fff8f1' : 'rgba(255,253,246,0.85)',
+      bg: isActive ? '#d57b52' : 'transparent',
+      border: isActive ? '#d57b52' : 'rgba(255,253,246,0.3)',
+    });
     const filters = ['All'].concat(TYPES).map((label) => {
       const isActive = activeFilter === label;
-      return {
+      const count = label === 'All'
+        ? VIDEOS.filter(matchesGenre).length
+        : VIDEOS.filter((v) => matchesGenre(v) && (v.type || []).indexOf(label) >= 0).length;
+      return Object.assign({
         label: label,
-        count: label === 'All' ? String(VIDEOS.length) : String(counts[label] || 0),
+        count: String(count),
         onPick: () => this.setState((s) => ({ filter: label, gridFlip: !s.gridFlip })),
-        color: isActive ? '#fff8f1' : 'rgba(255,253,246,0.85)',
-        bg: isActive ? '#d57b52' : 'transparent',
-        border: isActive ? '#d57b52' : 'rgba(255,253,246,0.3)',
-      };
+      }, styleFor(isActive));
+    });
+    const genreFilters = ['All'].concat(GENRES).map((label) => {
+      const isActive = activeGenre === label;
+      const count = label === 'All'
+        ? VIDEOS.filter(matchesFormat).length
+        : VIDEOS.filter((v) => matchesFormat(v) && v.genre === label).length;
+      return Object.assign({
+        label: label,
+        count: String(count),
+        onPick: () => pickGenre(label),
+      }, styleFor(isActive));
     });
 
     const half1 = BRANDS.slice(0, 9);
@@ -932,6 +961,7 @@ class Component extends DCLogic {
 
     return {
       videos: videos,
+      genreFilters: genreFilters,
       stats: [
         { value: '45', unit: '+', label: 'short-form videos shipped', delay: 0 },
         { value: '18', unit: '', label: 'brands partnered with', delay: 70 },
