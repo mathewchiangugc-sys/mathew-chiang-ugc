@@ -193,13 +193,13 @@
                     <span style="position:absolute; top:50%; left:50%; transform:translate(-50%,-58%); font-family:'Montserrat',sans-serif; font-weight:600; font-size:120px; color:rgba(255,253,246,0.07); line-height:1">{{ v.initial }}</span>
                   </sc-if>
                   <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(26,22,17,0.12) 0%, rgba(26,22,17,0) 35%, rgba(26,22,17,0) 55%, rgba(26,22,17,0.78) 100%)"></div>
-                  <span style="position:absolute; top:14px; left:14px; font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#fffdf6; background:rgba(31,27,20,0.45); backdrop-filter:blur(6px); padding:5px 12px; border-radius:999px">{{ v.cat }}</span>
                   <sc-if value="{{ v.showPlay }}" hint-placeholder-val="{{ false }}">
                     <span style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:62px; height:62px; border-radius:50%; background:#d57b52; box-shadow:0 10px 30px rgba(197,97,56,0.45); display:flex; align-items:center; justify-content:center; color:#fff8f1; font-size:20px; padding-left:4px; box-sizing:border-box">▶</span>
                   </sc-if>
-                  <div style="position:absolute; left:16px; right:16px; bottom:14px; display:flex; flex-direction:column; gap:3px">
+                  <div style="position:absolute; left:16px; right:16px; bottom:14px; display:flex; flex-direction:column; gap:6px">
                     <span style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:16px; color:#fffdf6">{{ v.brand }}</span>
                     <span style="font-size:12px; color:rgba(255,253,246,0.66)">{{ v.meta }}</span>
+                    <span style="align-self:flex-start; font-size:10px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#fffdf6; background:rgba(213,123,82,0.85); padding:4px 10px; border-radius:999px">{{ v.genre }}</span>
                     <sc-if value="{{ v.showNote }}" hint-placeholder-val="{{ false }}">
                       <span style="font-family:'JetBrains Mono',monospace; font-size:10px; color:rgba(255,253,246,0.4); margin-top:4px">video coming soon</span>
                     </sc-if>
@@ -537,18 +537,18 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 const VIDEOS = [
-  { brand: 'HolaFly', cat: 'Travel', type: ['Talking head', 'B-roll'], meta: 'Talking head · B-roll', livid: 'NW4XdUfqY_97', thumb: 'assets/thumbs/holafly.jpg' },
-  { brand: 'Flashfood', cat: 'Food / Lifestyle', type: ['Talking head', 'B-roll'], meta: 'Talking head · B-roll', livid: 'X_1b2zAxz9Um', thumb: 'assets/thumbs/flashfood.jpg' },
-  { brand: 'Constant Contact', cat: 'SaaS', type: ['Talking head'], meta: 'Talking head · subs', livid: 'FNkXO7lkhPMH', thumb: 'assets/thumbs/constant-contact-2.jpg' },
-  { brand: 'Axel AI', cat: 'Tech', type: ['B-roll', 'Voiceover'], meta: 'B-roll · voiceover', livid: 'H1tWDlsT9nbC', thumb: 'assets/thumbs/axel-ai.jpg' },
-  { brand: 'KiloCode', cat: 'Tech', type: ['Talking head', 'Product demo'], meta: 'Talking head · product demo', livid: '_mHs2v7ED7Dl', thumb: 'assets/thumbs/kilocode.jpg' },
-  { brand: 'vFlat Scan', cat: 'Tech', type: ['Talking head', 'Product demo'], meta: 'Talking head · product demo', livid: 'DWi4MELLKCnt', thumb: 'assets/thumbs/vflat.jpg' },
-  { brand: 'Constant Contact', cat: 'SaaS', type: ['Product demo'], meta: 'UGC · product demo', livid: 'BrACFOf5w0Ag', thumb: 'assets/thumbs/constant-contact-1.jpg' },
-  { brand: 'Marblism', cat: 'Tech', type: ['Talking head', 'Product demo'], meta: 'Talking head · product demo', livid: 'IWRJv_sSno3x', thumb: 'assets/thumbs/marblism.jpg' },
-  { brand: 'Proats', cat: 'Food / Lifestyle', type: ['B-roll', 'Voiceover'], meta: 'B-roll · voiceover', livid: 'XuRH8vK-OK5e', thumb: 'assets/thumbs/proats.jpg' },
-  { brand: 'Wonderdog', cat: 'Lifestyle', type: ['Talking head'], meta: 'Talking head · captions', livid: 'RotbGVxmYshI', thumb: 'assets/thumbs/wonderdog.jpg' },
-  { brand: 'GoMoWorld', cat: 'Travel', type: ['B-roll', 'Voiceover'], meta: 'B-roll · voiceover', livid: 'G8vVQD5Rktb3', thumb: 'assets/thumbs/gomoworld.jpg' },
-  { brand: 'Interac Debit', cat: 'Finance', type: ['Voiceover'], meta: 'UGC · voiceover', livid: 'oEMhv5ihChgp', thumb: 'assets/thumbs/interac.jpg' },
+  { brand: 'HolaFly', genre: 'Travel', type: ['Talking head', 'B-roll'], meta: 'Talking head · B-roll', livid: 'NW4XdUfqY_97', thumb: 'assets/thumbs/holafly.jpg' },
+  { brand: 'Flashfood', genre: 'Lifestyle', type: ['Talking head', 'B-roll'], meta: 'Talking head · B-roll', livid: 'X_1b2zAxz9Um', thumb: 'assets/thumbs/flashfood.jpg' },
+  { brand: 'Constant Contact', genre: 'Tech', type: ['Talking head'], meta: 'Talking head · subs', livid: 'FNkXO7lkhPMH', thumb: 'assets/thumbs/constant-contact-2.jpg' },
+  { brand: 'Axel AI', genre: 'Tech', type: ['B-roll', 'Voiceover'], meta: 'B-roll · voiceover', livid: 'H1tWDlsT9nbC', thumb: 'assets/thumbs/axel-ai.jpg' },
+  { brand: 'KiloCode', genre: 'Tech', type: ['Talking head', 'Product demo'], meta: 'Talking head · product demo', livid: '_mHs2v7ED7Dl', thumb: 'assets/thumbs/kilocode.jpg' },
+  { brand: 'vFlat Scan', genre: 'Tech', type: ['Talking head', 'Product demo'], meta: 'Talking head · product demo', livid: 'DWi4MELLKCnt', thumb: 'assets/thumbs/vflat.jpg' },
+  { brand: 'Constant Contact', genre: 'Tech', type: ['Product demo'], meta: 'UGC · product demo', livid: 'BrACFOf5w0Ag', thumb: 'assets/thumbs/constant-contact-1.jpg' },
+  { brand: 'Marblism', genre: 'Tech', type: ['Talking head', 'Product demo'], meta: 'Talking head · product demo', livid: 'IWRJv_sSno3x', thumb: 'assets/thumbs/marblism.jpg' },
+  { brand: 'Proats', genre: 'Lifestyle', type: ['B-roll', 'Voiceover'], meta: 'B-roll · voiceover', livid: 'XuRH8vK-OK5e', thumb: 'assets/thumbs/proats.jpg' },
+  { brand: 'Wonderdog', genre: 'Lifestyle', type: ['Talking head'], meta: 'Talking head · captions', livid: 'RotbGVxmYshI', thumb: 'assets/thumbs/wonderdog.jpg' },
+  { brand: 'GoMoWorld', genre: 'Travel', type: ['B-roll', 'Voiceover'], meta: 'B-roll · voiceover', livid: 'G8vVQD5Rktb3', thumb: 'assets/thumbs/gomoworld.jpg' },
+  { brand: 'Interac Debit', genre: 'Finance', type: ['Voiceover'], meta: 'UGC · voiceover', livid: 'oEMhv5ihChgp', thumb: 'assets/thumbs/interac.jpg' },
 ];
 
 const BRANDS = ['Interac Debit', 'HolaFly', 'Flashfood', 'Korean Air', 'Manus', 'Pelvini', 'West Paw', 'Proats', 'Wonderdog', 'Luma', 'Zwilling', 'JobWizard.ai', 'vFlat', 'KiloCode', 'GoMoWorld', 'Constant Contact', 'Marblism', 'Storylane', 'Okanagan Hound', 'Tavendi', 'Axel AI', 'notta AI', 'HeartMoments', 'ScoreGO'];
@@ -898,7 +898,7 @@ class Component extends DCLogic {
       const isPlaying = !!this.state.playing[i];
       return {
         brand: v.brand,
-        cat: v.cat,
+        genre: v.genre,
         meta: v.meta,
         initial: v.slot ? '+' : v.brand.charAt(0),
         thumb: v.thumb || (v.id ? 'https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg' : null),
