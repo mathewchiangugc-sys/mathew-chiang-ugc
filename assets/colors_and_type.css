@@ -1,0 +1,362 @@
+/* ============================================================
+   Mathew Chiang — UGC
+   Colors & Type Tokens
+   ============================================================
+   Earthy + sage palette with terracotta accents.
+   Playful-but-professional. Friendly, rounded, trustworthy.
+   ============================================================ */
+
+/* ---------- Fonts ---------- */
+/* Primary display: Fraunces — warm, slightly quirky serif with optical size */
+/* Primary body:    Inter Tight — modern, readable, pairs with Fraunces */
+/* Accent script:   Caveat — the "handwritten note" moments */
+/* Mono:            JetBrains Mono — for the "AI automator" side */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Albert+Sans:wght@300;400;500;600;700&family=Caveat:wght@400..700&family=JetBrains+Mono:wght@400..700&display=swap');
+
+:root {
+  /* ============================================================
+     COLOR — base palette
+     Warm, earthy, sun-faded. Think: a linen napkin on a clay
+     table next to a eucalyptus plant, in morning light.
+     ============================================================ */
+
+  /* Sage — the hero green. Calm, botanical, "considered." */
+  --sage-50:  #f2f5f0;
+  --sage-100: #e3e9dd;
+  --sage-200: #c7d3bd;
+  --sage-300: #a6b997;
+  --sage-400: #869d75;
+  --sage-500: #6b8259;   /* lighter shade of brand */
+  --sage-600: #556947;   /* primary brand sage */
+  --sage-700: #43533a;
+  --sage-800: #343f2f;
+  --sage-900: #232b20;
+
+  /* Terracotta — the accent. Warm clay, sunset, "wait, look at this." */
+  --terra-50:  #fbf1ec;
+  --terra-100: #f6dfd3;
+  --terra-200: #edbca5;
+  --terra-300: #e29876;
+  --terra-400: #d57b52;   /* primary terracotta */
+  --terra-500: #c56138;
+  --terra-600: #a94c28;
+  --terra-700: #853b1f;
+  --terra-800: #5f2a17;
+  --terra-900: #3c1a0e;
+
+  /* Clay / Neutral — the paper. Off-white, warm, never sterile. */
+  --clay-50:  #faf6f0;    /* page background — "linen" */
+  --clay-100: #f3ece0;
+  --clay-200: #e8dcc9;
+  --clay-300: #d4c3a7;
+  --clay-400: #b8a486;
+  --clay-500: #8f7c5e;
+  --clay-600: #6b5b44;
+  --clay-700: #4a3f2f;
+  --clay-800: #2f281e;
+  --clay-900: #1a1611;
+
+  /* Butter — supporting warm. Soft yellow for highlights + gentle surprise. */
+  --butter-100: #f7ecc7;
+  --butter-300: #eed28a;
+  --butter-500: #d9b358;
+
+  /* Ink — true dark for text. Never pure black. */
+  --ink:       #1f1b14;
+  --ink-soft:  #3a3328;
+  --ink-mute:  #6b6354;
+  --ink-faint: #9b9284;
+
+  /* ============================================================
+     COLOR — semantic
+     ============================================================ */
+  --bg:              var(--clay-50);
+  --bg-alt:          var(--clay-100);
+  --bg-sunk:         var(--clay-200);
+  --surface:         #ffffff;
+  --surface-warm:    #fffaf1;
+
+  --fg-1:            var(--ink);          /* primary text */
+  --fg-2:            var(--ink-soft);     /* body */
+  --fg-3:            var(--ink-mute);     /* meta */
+  --fg-4:            var(--ink-faint);    /* captions / disabled */
+  --fg-on-sage:      #fffdf6;
+  --fg-on-terra:     #fff8f1;
+
+  --brand:           var(--sage-600);
+  --brand-light:     var(--sage-500);
+  --brand-strong:    var(--sage-700);
+  --brand-soft:      var(--sage-100);
+
+  --accent:          var(--terra-500);
+  --accent-strong:   var(--terra-700);
+  --accent-soft:     var(--terra-100);
+
+  --line:            #e4dcc9;             /* hairline */
+  --line-strong:     #cfc3a8;
+  --focus:           var(--terra-400);
+
+  --success:         #556947;
+  --warning:         var(--butter-500);
+  --danger:          #b84a30;
+  --info:            #7a8aa0;
+
+  /* ============================================================
+     TYPOGRAPHY — families & weights
+     ============================================================ */
+  --font-display: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body:    "Albert Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-script:  "Caveat", "Segoe Script", cursive;
+  --font-mono:    "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+
+  /* Legacy font-variation-settings vars — kept as no-op for any stragglers */
+  --fraunces-soft: normal;
+  --fraunces-display: normal;
+
+  /* ============================================================
+     TYPE — scale (fluid, based on 16px)
+     ============================================================ */
+  --step--2: clamp(0.69rem, 0.67rem + 0.11vw, 0.75rem);
+  --step--1: clamp(0.83rem, 0.80rem + 0.17vw, 0.94rem);
+  --step-0:  clamp(1.00rem, 0.96rem + 0.22vw, 1.13rem);
+  --step-1:  clamp(1.20rem, 1.14rem + 0.30vw, 1.38rem);
+  --step-2:  clamp(1.44rem, 1.36rem + 0.42vw, 1.69rem);
+  --step-3:  clamp(1.73rem, 1.61rem + 0.60vw, 2.06rem);
+  --step-4:  clamp(2.07rem, 1.90rem + 0.86vw, 2.53rem);
+  --step-5:  clamp(2.49rem, 2.25rem + 1.21vw, 3.09rem);
+  --step-6:  clamp(2.99rem, 2.66rem + 1.68vw, 3.78rem);
+  --step-7:  clamp(3.58rem, 3.13rem + 2.29vw, 4.62rem);
+
+  /* ============================================================
+     SPACING — based on 4px grid
+     ============================================================ */
+  --s-0: 0;
+  --s-1: 0.25rem;   /* 4 */
+  --s-2: 0.5rem;    /* 8 */
+  --s-3: 0.75rem;   /* 12 */
+  --s-4: 1rem;      /* 16 */
+  --s-5: 1.5rem;    /* 24 */
+  --s-6: 2rem;      /* 32 */
+  --s-7: 3rem;      /* 48 */
+  --s-8: 4rem;      /* 64 */
+  --s-9: 6rem;      /* 96 */
+  --s-10: 8rem;     /* 128 */
+
+  /* ============================================================
+     RADIUS — friendly, trustworthy curves. Never sharp.
+     ============================================================ */
+  /* Primary radii — xl, pill, blob (plus smaller helpers for tight UI) */
+  --r-xs:  6px;
+  --r-sm:  10px;
+  --r-md:  14px;
+  --r-lg:  20px;
+  --r-xl:  28px;      /* default for cards + hero surfaces */
+  --r-2xl: 36px;
+  --r-pill: 999px;    /* buttons, badges, inputs */
+  --r-blob: 62% 38% 55% 45% / 50% 60% 40% 50%; /* organic blob — illustration + photo frames */
+
+  /* ============================================================
+     SHADOWS — soft, warm. Never grey.
+     ============================================================ */
+  --shadow-xs: 0 1px 2px rgba(74, 63, 47, 0.06);
+  --shadow-sm: 0 2px 6px rgba(74, 63, 47, 0.08), 0 1px 2px rgba(74, 63, 47, 0.04);
+  --shadow-md: 0 6px 18px rgba(74, 63, 47, 0.10), 0 2px 4px rgba(74, 63, 47, 0.05);
+  --shadow-lg: 0 18px 40px rgba(74, 63, 47, 0.14), 0 4px 10px rgba(74, 63, 47, 0.06);
+  --shadow-xl: 0 30px 70px rgba(74, 63, 47, 0.18);
+  --shadow-inset: inset 0 1px 2px rgba(74, 63, 47, 0.08);
+  --shadow-warm-glow: 0 0 0 1px var(--terra-200), 0 10px 30px rgba(197, 97, 56, 0.18);
+
+  /* ============================================================
+     MOTION
+     ============================================================ */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 140ms;
+  --dur-base: 240ms;
+  --dur-slow: 420ms;
+
+  /* ============================================================
+     Z-INDEX
+     ============================================================ */
+  --z-base: 1;
+  --z-sticky: 10;
+  --z-dropdown: 20;
+  --z-modal: 40;
+  --z-toast: 50;
+}
+
+/* ============================================================
+   BASE — typography defaults
+   ============================================================ */
+
+html {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--fg-1);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--step-0);
+  line-height: 1.55;
+  color: var(--fg-2);
+}
+
+/* ============================================================
+   SEMANTIC ELEMENTS
+   ============================================================ */
+
+.display, h1.display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--step-7);
+  line-height: 1.02;
+  letter-spacing: -0.028em;
+  color: var(--fg-1);
+  text-wrap: balance;
+}
+
+h1, .h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--step-6);
+  line-height: 1.05;
+  letter-spacing: -0.024em;
+  color: var(--fg-1);
+  text-wrap: balance;
+}
+
+h2, .h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--step-4);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--fg-1);
+  text-wrap: balance;
+}
+
+h3, .h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--step-3);
+  line-height: 1.2;
+  letter-spacing: -0.014em;
+  color: var(--fg-1);
+}
+
+h4, .h4 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--step-2);
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  color: var(--fg-1);
+}
+
+h5, .h5 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--step-1);
+  line-height: 1.35;
+  color: var(--fg-1);
+}
+
+h6, .eyebrow {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--step--1);
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--fg-3);
+}
+
+p, .p {
+  font-size: var(--step-0);
+  line-height: 1.6;
+  color: var(--fg-2);
+  text-wrap: pretty;
+}
+
+.lead {
+  font-size: var(--step-2);
+  line-height: 1.45;
+  font-weight: 400;
+  color: var(--fg-2);
+  text-wrap: pretty;
+}
+
+.small, small {
+  font-size: var(--step--1);
+  line-height: 1.5;
+  color: var(--fg-3);
+}
+
+.caption {
+  font-size: var(--step--2);
+  line-height: 1.45;
+  color: var(--fg-4);
+  letter-spacing: 0.01em;
+}
+
+.script {
+  font-family: var(--font-script);
+  font-weight: 500;
+  font-size: var(--step-3);
+  line-height: 1.1;
+  color: var(--accent);
+  letter-spacing: 0.005em;
+}
+
+code, .code, kbd, samp {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  background: var(--bg-alt);
+  padding: 0.08em 0.36em;
+  border-radius: var(--r-xs);
+  color: var(--fg-1);
+  border: 1px solid var(--line);
+}
+
+pre {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  line-height: 1.55;
+  background: var(--ink);
+  color: var(--clay-100);
+  padding: var(--s-5);
+  border-radius: var(--r-md);
+  overflow-x: auto;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.18em;
+  text-decoration-color: var(--terra-200);
+  transition: color var(--dur-fast) var(--ease-out-soft),
+              text-decoration-color var(--dur-fast) var(--ease-out-soft);
+}
+a:hover {
+  color: var(--accent-strong);
+  text-decoration-color: var(--accent);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: var(--s-6) 0;
+}
+
+::selection {
+  background: var(--terra-200);
+  color: var(--ink);
+}

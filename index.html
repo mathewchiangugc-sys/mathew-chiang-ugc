@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;family=Albert+Sans:wght@300;400;500;600;700&amp;family=Caveat:wght@400..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; background: #faf6f0; transition: background-color 900ms cubic-bezier(0.22, 1, 0.36, 1); }
+    body { margin: 0; padding: 0; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; background: #faf6f0; transition: background-color 900ms cubic-bezier(0.22, 1, 0.36, 1); }
+    ::selection { background: #edbca5; color: #1f1b14; }
+    /* web-component sizing reset: image-slot fills its sized mount wrapper */
+    image-slot { display: block; width: 100%; height: 100%; }
+    @keyframes tile-in-a {
+      from { opacity: 0; transform: scale(0.94) translateY(14px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes tile-in-b {
+      from { opacity: 0; transform: scale(0.94) translateY(14px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes lb-pop {
+      from { opacity: 0; transform: scale(0.9) translateY(20px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes menu-fade-in {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes menu-link-in {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes hero-kenburns {
+      from { transform: scale(1.085); }
+      to   { transform: scale(1); }
+    }
+  </style>
+</helmet>
+
+<div id="pagebg" style="font-family:'Albert Sans',sans-serif; color:#1f1b14; overflow-x:hidden; background:#faf6f0; transition:background-color 900ms cubic-bezier(0.22, 1, 0.36, 1)">
+
+  <!-- ============ HEADER ============ -->
+  <header style="position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:0 clamp(18px, 4vw, 32px); height:clamp(72px, 9vw, 104px); background:rgba(250,246,240,0.82); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid #e4dcc9">
+    <a href="#home" style="display:flex; align-items:baseline; gap:8px; text-decoration:none">
+      <span style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:clamp(17px, 4.4vw, 24px); letter-spacing:-0.02em; color:#1f1b14; white-space:nowrap">MATHEW CHIANG</span>
+      <span style="font-family:'Caveat',cursive; font-weight:600; font-size:clamp(22px, 5.4vw, 30px); color:#c56138; line-height:1">ugc</span>
+    </a>
+    <sc-if value="{{ desktopNav }}" hint-placeholder-val="{{ true }}">
+    <nav style="display:flex; align-items:center; gap:26px">
+      <a href="#videos" style="display:inline-block; font-size:21px; font-weight:600; letter-spacing:0.02em; text-transform:uppercase; color:#3a3328; text-decoration:none; transition:color 360ms cubic-bezier(0.22,1,0.36,1), letter-spacing 360ms cubic-bezier(0.22,1,0.36,1), transform 360ms cubic-bezier(0.22,1,0.36,1)" style-hover="color:#c56138; letter-spacing:0.06em; transform:translateY(-2px)" data-comment-anchor="9c05cd0275-a">Videos</a>
+      <a href="#about" style="display:inline-block; font-size:21px; font-weight:600; letter-spacing:0.02em; text-transform:uppercase; color:#3a3328; text-decoration:none; transition:color 360ms cubic-bezier(0.22,1,0.36,1), letter-spacing 360ms cubic-bezier(0.22,1,0.36,1), transform 360ms cubic-bezier(0.22,1,0.36,1)" style-hover="color:#c56138; letter-spacing:0.06em; transform:translateY(-2px)">About</a>
+      <a href="#brands" style="display:inline-block; font-size:21px; font-weight:600; letter-spacing:0.02em; text-transform:uppercase; color:#3a3328; text-decoration:none; transition:color 360ms cubic-bezier(0.22,1,0.36,1), letter-spacing 360ms cubic-bezier(0.22,1,0.36,1), transform 360ms cubic-bezier(0.22,1,0.36,1)" style-hover="color:#c56138; letter-spacing:0.06em; transform:translateY(-2px)">Brands</a>
+      <a href="#services" style="display:inline-block; font-size:21px; font-weight:600; letter-spacing:0.02em; text-transform:uppercase; color:#3a3328; text-decoration:none; transition:color 360ms cubic-bezier(0.22,1,0.36,1), letter-spacing 360ms cubic-bezier(0.22,1,0.36,1), transform 360ms cubic-bezier(0.22,1,0.36,1)" style-hover="color:#c56138; letter-spacing:0.06em; transform:translateY(-2px)">Services</a>
+      <a href="#work" style="display:inline-block; font-size:21px; font-weight:600; letter-spacing:0.02em; text-transform:uppercase; color:#3a3328; text-decoration:none; transition:color 360ms cubic-bezier(0.22,1,0.36,1), letter-spacing 360ms cubic-bezier(0.22,1,0.36,1), transform 360ms cubic-bezier(0.22,1,0.36,1)" style-hover="color:#c56138; letter-spacing:0.06em; transform:translateY(-2px)">Work with me</a>
+      <a href="#contact" style="font-size:21px; font-weight:600; letter-spacing:0.02em; text-transform:uppercase; color:#fffdf6; background:#556947; padding:14px 30px; border-radius:999px; text-decoration:none; box-shadow:0 2px 6px rgba(74,63,47,0.12); transition:all 240ms cubic-bezier(0.22,1,0.36,1); white-space:nowrap" style-hover="background:#6b8259; transform:translateY(-1px)">Get in touch</a>
+    </nav>
+    </sc-if>
+    <sc-if value="{{ compactNav }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ toggleMenu }}" aria-label="Toggle menu" style="width:48px; height:48px; border:1.5px solid #cfc3a8; border-radius:999px; background:rgba(255,250,241,0.7); cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; flex:none; transition:transform 240ms cubic-bezier(0.34,1.56,0.64,1)" style-active="transform:scale(0.92)">
+        <span style="position:relative; width:18px; height:12px; display:block">
+          <span style="position:absolute; left:0; top:0; width:18px; height:2px; border-radius:2px; background:#1f1b14; transition:transform 320ms cubic-bezier(0.34,1.56,0.64,1); transform:{{ barTopT }}"></span>
+          <span style="position:absolute; left:0; bottom:0; width:18px; height:2px; border-radius:2px; background:#1f1b14; transition:transform 320ms cubic-bezier(0.34,1.56,0.64,1); transform:{{ barBotT }}"></span>
+        </span>
+      </button>
+    </sc-if>
+  </header>
+
+  <!-- ============ MOBILE MENU ============ -->
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Mobile menu" style="position:fixed; inset:0; z-index:90; background:#556947; display:flex; flex-direction:column; justify-content:space-between; gap:28px; padding:max(16px, env(safe-area-inset-top)) 26px max(30px, env(safe-area-inset-bottom)); box-sizing:border-box; overflow:auto; animation:menu-fade-in 280ms cubic-bezier(0.22,1,0.36,1) both">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; height:60px; flex:none">
+        <span style="font-family:'Caveat',cursive; font-weight:600; font-size:30px; color:#eed28a; transform:rotate(-2deg); display:inline-block">mathew chiang</span>
+        <button onClick="{{ closeMenu }}" aria-label="Close menu" style="width:48px; height:48px; border:1.5px solid rgba(255,253,246,0.4); border-radius:999px; background:transparent; color:#fffdf6; font-size:17px; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; flex:none; transition:transform 240ms cubic-bezier(0.34,1.56,0.64,1)" style-active="transform:scale(0.92)">✕</button>
+      </div>
+      <nav style="display:flex; flex-direction:column; gap:10px">
+        <sc-for list="{{ menuLinks }}" as="m" hint-placeholder-count="6">
+          <a href="{{ m.href }}" onClick="{{ closeMenu }}" style="display:flex; align-items:baseline; gap:16px; font-family:'Montserrat',sans-serif; font-weight:600; font-size:clamp(38px, 9.6vw, 56px); letter-spacing:-0.03em; line-height:1.18; color:#fffdf6; text-decoration:none; animation:menu-link-in 560ms cubic-bezier(0.22,1,0.36,1) {{ m.delay }} both" style-active="color:#eed28a">
+            <span style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.1em; color:#eed28a; flex:none">{{ m.num }}</span>
+            <span>{{ m.label }}</span>
+          </a>
+        </sc-for>
+      </nav>
+      <div style="display:flex; flex-direction:column; align-items:flex-start; gap:8px; animation:menu-link-in 560ms cubic-bezier(0.22,1,0.36,1) 380ms both">
+        <span style="font-family:'Caveat',cursive; font-weight:600; font-size:26px; color:#f6dfd3; transform:rotate(-2deg); display:inline-block">or just say hi —</span>
+        <button onClick="{{ copyEmail }}" title="Click to copy" style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:clamp(18px, 5vw, 24px); letter-spacing:-0.01em; color:#fffdf6; background:transparent; border:none; cursor:pointer; padding:0 0 4px; border-bottom:2px solid #e29876; max-width:100%; overflow-wrap:anywhere; transition:all 240ms cubic-bezier(0.22,1,0.36,1)" style-active="transform:scale(0.98)">{{ email }}</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ HERO ============ -->
+  <section id="home" data-screen-label="Hero" data-bg="#faf6f0" style="position:relative; min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:clamp(110px, 16vh, 144px) clamp(18px, 4vw, 40px) clamp(72px, 10vh, 104px); box-sizing:border-box">
+    <div style="position:absolute; inset:0; background-image:url('assets/paper-grain.svg'); opacity:0.5; pointer-events:none"></div>
+
+    <div style="position:relative; width:100%">
+
+      <!-- type layer (over the collage) -->
+      <div style="position:relative; pointer-events:none">
+        <div data-rv="fade" style="display:flex; align-items:center; justify-content:space-between; gap:8px 12px; flex-wrap:wrap; margin-bottom:clamp(14px, 2vw, 26px)">
+          <span style="display:flex; align-items:center; gap:12px">
+            <span style="width:10px; height:10px; border-radius:50%; background:#c56138"></span>
+            <span style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.08em; color:#6b6354">UGC creator · available for briefs</span>
+          </span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.08em; color:#6b6354; white-space:nowrap">VICTORIA, BC : {{ clock }}</span>
+        </div>
+
+        <div style="display:flex; flex-wrap:wrap; align-items:flex-start; gap:clamp(28px, 2vw, 40px) clamp(5px, 1vw, 20px); width:100%">
+          <div style="flex:0 0 auto; max-width:100%; min-width:min(100%, 300px); position:relative; z-index:2">
+        <h1 data-drift="-1" style="margin:0; font-family:'Montserrat',sans-serif; font-weight:600; font-size:clamp(35px, 12.4vw, 240px); will-change:transform; line-height:0.9; letter-spacing:-0.045em; color:#1f1b14; pointer-events:none">
+          <span style="display:block; white-space:nowrap; pointer-events:auto; width:fit-content">
+            <span data-rv="rise" data-rv-delay="0" style="display:inline-block; cursor:default; transition:color 240ms cubic-bezier(0.22, 1, 0.36, 1)" style-hover="color:#c56138">M</span><span data-rv="rise" data-rv-delay="40" style="display:inline-block; cursor:default; transition:color 240ms cubic-bezier(0.22, 1, 0.36, 1)" style-hover="color:#556947">A</span><span data-rv="rise" data-rv-delay="80" style="display:inline-block; cursor:default; transition:color 240ms cubic-bezier(0.22, 1, 0.36, 1)" style-hover="color:#b89236">T</span><span data-rv="rise" data-rv-delay="120" style="display:inline-block; cursor:default; transition:color 240ms cubic-bezier(0.22, 1, 0.36, 1)" style-hover="color:#6b8259">H</span><span data-rv="rise" data-rv-delay="160" style="display:inline-block; cursor:default; transition:color 240ms cubic-bezier(0.22, 1, 0.36, 1)" style-hover="color:#905d48">E</span><span data-rv="rise" data-rv-delay="200" style="display:inline-block; cursor:default; transition:color 240ms cubic-bezier(0.22, 1, 0.36, 1)" style-hover="color:#c56138">W</span>
+          </span>
+        </h1>
+
+        
+
+        <h1 data-drift="1" style="margin:0; font-family:'Montserrat',sans-serif; font-weight:600; font-size:clamp(37px, 14.7vw, 288px); will-change:transform; line-height:0.9; letter-spacing:-0.045em; color:transparent; -webkit-text-stroke:3px #1f1b14; pointer-events:none">
+          <span style="display:block; white-space:nowrap; pointer-events:auto; width:fit-content">
+            <span data-rv="rise" data-rv-delay="340" style="display:inline-block; cursor:default; transition:color 240ms cubic-bezier(0.22, 1, 0.36, 1)" style-hover="color:#c56138">C</span><span data-rv="rise" data-rv-delay="380" style="display:inline-block; cursor:default; transition:color 240ms cubic-bezier(0.22, 1, 0.36, 1)" style-hover="color:#556947">H</span><span data-rv="rise" data-rv-delay="420" style="display:inline-block; cursor:default; transition:color 240ms cubic-bezier(0.22, 1, 0.36, 1)" style-hover="color:#eed28a">I</span><span data-rv="rise" data-rv-delay="460" style="display:inline-block; cursor:default; transition:color 240ms cubic-bezier(0.22, 1, 0.36, 1)" style-hover="color:#6b8259">A</span><span data-rv="rise" data-rv-delay="500" style="display:inline-block; cursor:default; transition:color 240ms cubic-bezier(0.22, 1, 0.36, 1)" style-hover="color:#905d48">N</span><span data-rv="rise" data-rv-delay="540" style="display:inline-block; cursor:default; transition:color 240ms cubic-bezier(0.22, 1, 0.36, 1)" style-hover="color:#c56138">G</span>
+          </span>
+        </h1>
+
+        <div data-rv="rise" data-rv-delay="650" style="display:flex; flex-direction:column; align-items:center; gap:clamp(18px, 2vw, 26px); margin-top:clamp(14px, 1.6vw, 24px); pointer-events:auto">
+          <div style="display:flex; align-items:center; justify-content:flex-start; gap:14px; flex-wrap:wrap">
+            <a href="#videos" style="font-size:clamp(17px, 1.9vw, 22px); font-weight:600; color:#fffdf6; background:#556947; padding:clamp(16px, 2.2vw, 24px) clamp(26px, 3.4vw, 42px); border-radius:999px; text-decoration:none; box-shadow:0 6px 18px rgba(74,63,47,0.14); transition:all 240ms cubic-bezier(0.22,1,0.36,1)" style-hover="background:#6b8259; transform:translateY(-2px); box-shadow:0 18px 40px rgba(74,63,47,0.18)" style-active="transform:scale(0.98)"><span style="white-space:nowrap">Let's see the content ↓</span></a>
+            <button onClick="{{ copyEmail }}" style="font-family:'Albert Sans',sans-serif; font-size:clamp(17px, 1.9vw, 22px); font-weight:600; color:#3a3328; background:transparent; border:1.5px solid #cfc3a8; padding:clamp(14px, 2vw, 22px) clamp(24px, 3.2vw, 39px); border-radius:999px; cursor:pointer; transition:all 240ms cubic-bezier(0.22,1,0.36,1)" style-hover="border-color:#c56138; color:#c56138; transform:translateY(-2px)" style-active="transform:scale(0.98)"><span style="white-space:nowrap">Copy my email</span></button>
+          </div>
+          <p style="margin:0; font-size:clamp(17px, 1.8vw, 22px); line-height:1.55; color:#3a3328; max-width:46ch; text-wrap:pretty">
+            Licensed drug dealer (pharmacist) + millennial + dog dad. Tech, finance, home decor &amp; lifestyle — based in Victoria, British Columbia, Canada.
+          </p>
+          <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap">
+            <a href="https://x.com/mathewchiangugc" target="_blank" rel="noopener" style="font-size:13.5px; font-weight:600; color:#3a3328; border:1.5px solid #cfc3a8; padding:9px 18px; border-radius:999px; text-decoration:none; transition:all 240ms cubic-bezier(0.22,1,0.36,1)" style-hover="background:#edbca5; border-color:#edbca5; color:#1f1b14; transform:translateY(-2px)">X</a>
+            <a href="https://www.instagram.com/mathewchiang.ugc" target="_blank" rel="noopener" style="font-size:13.5px; font-weight:600; color:#3a3328; border:1.5px solid #cfc3a8; padding:9px 18px; border-radius:999px; text-decoration:none; transition:all 240ms cubic-bezier(0.22,1,0.36,1)" style-hover="background:#edbca5; border-color:#edbca5; color:#1f1b14; transform:translateY(-2px)">My Instagram</a>
+            <a href="https://www.tiktok.com/@mathewchiang.ugc" target="_blank" rel="noopener" style="font-size:13.5px; font-weight:600; color:#3a3328; border:1.5px solid #cfc3a8; padding:9px 18px; border-radius:999px; text-decoration:none; transition:all 240ms cubic-bezier(0.22,1,0.36,1)" style-hover="background:#edbca5; border-color:#edbca5; color:#1f1b14; transform:translateY(-2px)">TikTok</a>
+            <a href="https://www.instagram.com/keeparloprofile" target="_blank" rel="noopener" style="font-size:13.5px; font-weight:600; color:#3a3328; border:1.5px solid #cfc3a8; padding:9px 18px; border-radius:999px; text-decoration:none; transition:all 240ms cubic-bezier(0.22,1,0.36,1)" style-hover="background:#edbca5; border-color:#edbca5; color:#1f1b14; transform:translateY(-2px)">Arlo's IG</a>
+          </div>
+        </div>
+          </div>
+          <div data-rv="pop" data-rv-delay="500" style="flex:1 1 300px; min-width:min(100%, 260px); max-width:880px; align-self:stretch; position:relative; z-index:1; min-height:clamp(380px, 46vw, 660px); pointer-events:auto; display:flex">
+            <div style="flex:1; display:flex; background:#fffaf1; padding:6px; border-radius:18px; box-shadow:0 24px 60px rgba(74,63,47,0.2); transition:all 240ms cubic-bezier(0.22,1,0.36,1)" style-hover="transform:translateY(-4px); box-shadow:0 30px 70px rgba(74,63,47,0.25)">
+              <div style="position:relative; flex:1; border-radius:11px; overflow:hidden; background:#efe7d8">
+                <sc-for list="{{ heroSlides }}" as="s" hint-placeholder-count="3">
+                  <div style="{{ s.wrapStyle }}">
+                    <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ s.id }}" shape="rect" placeholder="{{ s.placeholder }}" style="width:100%; height:100%; display:block" hint-size="330px,560px"></x-import>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============ VIDEOS ============ -->
+  <section id="videos" data-screen-label="Videos" data-bg="#343f2f" style="background:transparent; padding:clamp(80px, 12vw, 110px) clamp(18px, 4vw, 32px) clamp(90px, 13vw, 120px); scroll-margin-top:clamp(64px, 9vw, 96px)">
+    <div style="max-width:1240px; margin:0 auto">
+      <div data-rv="rise" style="display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:48px; flex-wrap:wrap">
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.12em; color:#e29876; margin-bottom:14px">01 — PORTFOLIO</div>
+          <h2 style="margin:0; font-family:'Montserrat',sans-serif; font-weight:600; font-size:clamp(40px, 5vw, 68px); letter-spacing:-0.025em; line-height:1.02; color:#fffdf6">The content.</h2>
+        </div>
+        <span style="font-family:'Caveat',cursive; font-weight:600; font-size:28px; color:#c7d3bd; transform:rotate(-2deg); padding-bottom:8px; white-space:nowrap">tap a tile to play →</span>
+      </div>
+
+      <div data-rv="fade" style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:34px">
+        <sc-for list="{{ filters }}" as="f" hint-placeholder-count="5">
+          <button onClick="{{ f.onPick }}" style="font-family:'Albert Sans',sans-serif; font-size:14px; font-weight:600; letter-spacing:0.02em; color:{{ f.color }}; background:{{ f.bg }}; border:1.5px solid {{ f.border }}; padding:11px 22px; border-radius:999px; cursor:pointer; transition:all 240ms cubic-bezier(0.22,1,0.36,1)" style-hover="transform:translateY(-2px); border-color:#e29876" style-active="transform:scale(0.96)">{{ f.label }}<span style="font-family:'JetBrains Mono',monospace; font-size:11px; opacity:0.65; margin-left:8px">{{ f.count }}</span></button>
+        </sc-for>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap:clamp(14px, 2vw, 22px); animation:{{ gridAnim }}">
+        <sc-for list="{{ videos }}" as="v" hint-placeholder-count="16">
+          <div data-rv="pop" data-rv-delay="{{ v.delay }}" onClick="{{ v.onPlay }}" style="position:relative; aspect-ratio:9/16; border-radius:18px; overflow:hidden; background:#3c4a36; border:1px solid rgba(255,253,246,0.08); cursor:{{ v.cursor }}; transition:transform 240ms cubic-bezier(0.22,1,0.36,1), box-shadow 240ms cubic-bezier(0.22,1,0.36,1)" style-hover="transform:translateY(-5px); box-shadow:0 18px 40px rgba(0,0,0,0.3)">
+              <div style="position:absolute; inset:0">
+                <sc-if value="{{ v.thumb }}" hint-placeholder-val="{{ false }}">
+                  <div role="img" aria-label="{{ v.brand }}" style="position:absolute; inset:0; background-image:url('{{ v.thumb }}'); background-size:cover; background-position:center"></div>
+                </sc-if>
+                <sc-if value="{{ v.showNote }}" hint-placeholder-val="{{ true }}">
+                  <span style="position:absolute; top:50%; left:50%; transform:translate(-50%,-58%); font-family:'Montserrat',sans-serif; font-weight:600; font-size:120px; color:rgba(255,253,246,0.07); line-height:1">{{ v.initial }}</span>
+                </sc-if>
+                <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(26,22,17,0.12) 0%, rgba(26,22,17,0) 35%, rgba(26,22,17,0) 55%, rgba(26,22,17,0.78) 100%)"></div>
+                <span style="position:absolute; top:14px; left:14px; font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#fffdf6; background:rgba(31,27,20,0.45); backdrop-filter:blur(6px); padding:5px 12px; border-radius:999px">{{ v.cat }}</span>
+                <sc-if value="{{ v.showPlay }}" hint-placeholder-val="{{ false }}">
+                  <span style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:62px; height:62px; border-radius:50%; background:#d57b52; box-shadow:0 10px 30px rgba(197,97,56,0.45); display:flex; align-items:center; justify-content:center; color:#fff8f1; font-size:20px; padding-left:4px; box-sizing:border-box">▶</span>
+                </sc-if>
+                <div style="position:absolute; left:16px; right:16px; bottom:14px; display:flex; flex-direction:column; gap:3px">
+                  <span style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:16px; color:#fffdf6">{{ v.brand }}</span>
+                  <span style="font-size:12px; color:rgba(255,253,246,0.66)">{{ v.meta }}</span>
+                  <sc-if value="{{ v.showNote }}" hint-placeholder-val="{{ false }}">
+                    <span style="font-family:'JetBrains Mono',monospace; font-size:10px; color:rgba(255,253,246,0.4); margin-top:4px">video coming soon</span>
+                  </sc-if>
+                </div>
+              </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <!-- ===== BY THE NUMBERS ===== -->
+      <div data-rv="rise" style="margin-top:clamp(64px, 8vw, 96px); padding-top:clamp(40px, 5vw, 56px); border-top:1px solid rgba(255,253,246,0.16)">
+        <div style="display:flex; align-items:baseline; justify-content:space-between; gap:18px; flex-wrap:wrap; margin-bottom:clamp(30px, 4vw, 44px)">
+          <span style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.12em; color:#e29876">THE RESULTS</span>
+          <span style="font-family:'Caveat',cursive; font-weight:600; font-size:24px; color:#c7d3bd; transform:rotate(-2deg); display:inline-block; white-space:nowrap">full case studies on request →</span>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap:clamp(20px, 3vw, 36px)">
+          <sc-for list="{{ stats }}" as="st" hint-placeholder-count="4">
+            <div data-rv="pop" data-rv-delay="{{ st.delay }}" style="display:flex; flex-direction:column; gap:8px">
+              <span style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:clamp(46px, 6.4vw, 76px); letter-spacing:-0.03em; line-height:0.92; color:#fff8f1">{{ st.value }}<span style="color:#e29876">{{ st.unit }}</span></span>
+              <span style="font-size:14.5px; line-height:1.4; color:rgba(255,253,246,0.66); max-width:22ch; text-wrap:pretty">{{ st.label }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about" data-screen-label="About" data-bg="#faf6f0" style="background:transparent; padding:clamp(80px, 12vw, 120px) clamp(18px, 4vw, 32px); scroll-margin-top:clamp(64px, 9vw, 96px)">
+    <div style="max-width:1140px; margin:0 auto; display:flex; flex-wrap:wrap; gap:clamp(44px, 6vw, 72px); align-items:flex-start">
+      <div data-rv="rise" style="position:relative; padding-top:24px; flex:1 1 320px; min-width:min(100%, 280px); max-width:520px">
+        <div style="transform:rotate(-2deg); border-radius:32px; box-shadow:0 18px 40px rgba(74,63,47,0.14), 0 4px 10px rgba(74,63,47,0.06); overflow:hidden; border:1px solid #e4dcc9; background:#f3ece0">
+          <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="about-portrait" shape="rect" placeholder="Drop a photo of Mat (or Arlo)" style="width:100%; height:clamp(420px, 60vw, 540px); display:block" hint-size="100%,540px"></x-import>
+        </div>
+        <img src="assets/leaf-sprig.svg" alt="" style="position:absolute; top:-6px; right:-18px; width:84px; transform:rotate(16deg)">
+        <div style="display:flex; align-items:center; gap:8px; margin-top:22px; margin-left:14px; transform:rotate(-3deg)">
+          <span style="font-family:'Caveat',cursive; font-weight:600; font-size:27px; color:#c56138; line-height:1; white-space:nowrap">Arlo is available for cameos</span>
+          <img src="assets/arrow-scribble.svg" alt="" style="width:66px; transform:rotate(-130deg)">
+        </div>
+        <div style="display:flex; justify-content:flex-end; margin-top:clamp(28px, 4vw, 48px); padding-right:clamp(6px, 3vw, 28px)">
+          <div style="position:relative; width:min(78%, 280px); transform:rotate(3.5deg); background:#fffaf1; padding:10px 10px 42px; border-radius:6px; border:1px solid #e4dcc9; box-shadow:0 16px 36px rgba(74,63,47,0.16), 0 3px 8px rgba(74,63,47,0.08); transition:transform 280ms cubic-bezier(0.22,1,0.36,1)" style-hover="transform:rotate(0deg) translateY(-4px)">
+            <div style="border-radius:3px; overflow:hidden; background:#efe7d8; aspect-ratio:4/5">
+              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="about-arlo" shape="rect" placeholder="Drop a candid of Arlo" style="width:100%; height:100%; display:block" hint-size="100%,100%"></x-import>
+            </div>
+            <span style="position:absolute; left:50%; bottom:12px; transform:translateX(-50%); font-family:'Caveat',cursive; font-weight:600; font-size:22px; color:#3a3328; white-space:nowrap">the art director</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="flex:1.25 1 440px; min-width:min(100%, 300px)">
+        <div data-rv="rise" style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.12em; color:#c56138; margin-bottom:14px">02 — ABOUT</div>
+        <h2 data-rv="rise" data-rv-delay="60" style="margin:0 0 22px; font-family:'Montserrat',sans-serif; font-weight:600; font-size:clamp(40px, 5vw, 64px); letter-spacing:-0.025em; line-height:1.04; color:#1f1b14">Oh, hi there!</h2>
+        <p data-rv="rise" data-rv-delay="120" style="margin:0 0 36px; font-size:18px; line-height:1.6; color:#3a3328; max-width:58ch; text-wrap:pretty">
+          If you're here, you probably think my videos are decent. That's great! <strong style="font-weight:600">I'm Mat.</strong>
+        </p>
+
+        <div data-rv="rise" data-rv-delay="180" style="margin-bottom:40px">
+          <h3 style="margin:0 0 18px; font-family:'Montserrat',sans-serif; font-weight:600; font-size:21px; color:#1f1b14">Why me?</h3>
+          <div style="display:flex; flex-direction:column; gap:0">
+            <div style="display:flex; gap:18px; padding:14px 0; border-top:1px solid #e4dcc9">
+              <span style="font-family:'Caveat',cursive; font-weight:600; font-size:26px; color:#c56138; line-height:1.1; min-width:28px">1</span>
+              <p style="margin:0; font-size:15.5px; line-height:1.55; color:#3a3328">I focus on what performs: strong hooks, clear concepts, and fast iteration — not just authenticity.</p>
+            </div>
+            <div style="display:flex; gap:18px; padding:14px 0; border-top:1px solid #e4dcc9">
+              <span style="font-family:'Caveat',cursive; font-weight:600; font-size:26px; color:#c56138; line-height:1.1; min-width:28px">2</span>
+              <p style="margin:0; font-size:15.5px; line-height:1.55; color:#3a3328">Before filming, I research top-performing ads and trending hooks so every concept has a strategic reason to convert.</p>
+            </div>
+            <div style="display:flex; gap:18px; padding:14px 0; border-top:1px solid #e4dcc9">
+              <span style="font-family:'Caveat',cursive; font-weight:600; font-size:26px; color:#c56138; line-height:1.1; min-width:28px">3</span>
+              <p style="margin:0; font-size:15.5px; line-height:1.55; color:#3a3328">I think like a brand strategist, not just a creator. Every concept ties back to your objective.</p>
+            </div>
+            <div style="display:flex; gap:18px; padding:14px 0; border-top:1px solid #e4dcc9">
+              <span style="font-family:'Caveat',cursive; font-weight:600; font-size:26px; color:#c56138; line-height:1.1; min-width:28px">4</span>
+              <p style="margin:0; font-size:15.5px; line-height:1.55; color:#3a3328">I treat every project like a system: clear timelines, proactive communication, and revisions included.</p>
+            </div>
+            <div style="display:flex; gap:18px; padding:14px 0; border-top:1px solid #e4dcc9; border-bottom:1px solid #e4dcc9">
+              <span style="font-family:'Caveat',cursive; font-weight:600; font-size:26px; color:#c56138; line-height:1.1; min-width:28px">5</span>
+              <p style="margin:0; font-size:15.5px; line-height:1.55; color:#3a3328">I will absolutely send you photos of Arlo if you're having a rough day.</p>
+            </div>
+          </div>
+        </div>
+
+        <div data-rv="rise" data-rv-delay="240">
+          <h3 style="margin:0 0 22px; font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:#c56138">Some facts about me</h3>
+          <div style="display:flex; flex-direction:column">
+            <div style="display:flex; align-items:baseline; gap:16px; padding:16px 0; border-top:1.5px solid #d9cfb8">
+              <span style="font-family:'JetBrains Mono',monospace; font-size:13px; color:#8a8170; flex:none; min-width:30px">01</span>
+              <p style="margin:0; font-family:'Montserrat',sans-serif; font-weight:600; font-size:clamp(22px, 2.8vw, 30px); letter-spacing:-0.02em; line-height:1.12; color:#1f1b14">Dog dad to <span style="color:#c56138">Arlo</span> — very photogenic</p>
+            </div>
+            <div style="display:flex; align-items:baseline; gap:16px; padding:16px 0; border-top:1.5px solid #d9cfb8">
+              <span style="font-family:'JetBrains Mono',monospace; font-size:13px; color:#8a8170; flex:none; min-width:30px">02</span>
+              <p style="margin:0; font-family:'Montserrat',sans-serif; font-weight:600; font-size:clamp(22px, 2.8vw, 30px); letter-spacing:-0.02em; line-height:1.12; color:#1f1b14"><span style="color:#556947">Pharmacist</span> by day, creator by night</p>
+            </div>
+            <div style="display:flex; align-items:baseline; gap:16px; padding:16px 0; border-top:1.5px solid #d9cfb8">
+              <span style="font-family:'JetBrains Mono',monospace; font-size:13px; color:#8a8170; flex:none; min-width:30px">03</span>
+              <p style="margin:0; font-family:'Montserrat',sans-serif; font-weight:600; font-size:clamp(22px, 2.8vw, 30px); letter-spacing:-0.02em; line-height:1.12; color:#1f1b14">Based in <span style="color:#556947">Victoria, BC</span> — ocean, mountains &amp; forests on tap</p>
+            </div>
+            <div style="display:flex; align-items:baseline; gap:16px; padding:16px 0; border-top:1.5px solid #d9cfb8">
+              <span style="font-family:'JetBrains Mono',monospace; font-size:13px; color:#8a8170; flex:none; min-width:30px">04</span>
+              <p style="margin:0; font-family:'Montserrat',sans-serif; font-weight:600; font-size:clamp(22px, 2.8vw, 30px); letter-spacing:-0.02em; line-height:1.12; color:#1f1b14">Photographer &amp; designer for <span style="color:#c56138">10+ years</span></p>
+            </div>
+            <div style="display:flex; align-items:baseline; gap:16px; padding:16px 0; border-top:1.5px solid #d9cfb8; border-bottom:1.5px solid #d9cfb8">
+              <span style="font-family:'JetBrains Mono',monospace; font-size:13px; color:#8a8170; flex:none; min-width:30px">05</span>
+              <p style="margin:0; font-family:'Montserrat',sans-serif; font-weight:600; font-size:clamp(22px, 2.8vw, 30px); letter-spacing:-0.02em; line-height:1.12; color:#1f1b14">Tennis weekend warrior &amp; avid <span style="color:#556947">pickleballer</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BRANDS + TESTIMONIALS ============ -->
+  <section id="brands" data-screen-label="Brands and testimonials" data-bg="#c56138" style="background:transparent; padding:110px 0 120px; scroll-margin-top:clamp(64px, 9vw, 96px); overflow:hidden">
+    <div style="max-width:1240px; margin:0 auto; padding:0 clamp(18px, 4vw, 32px); box-sizing:border-box">
+      <div data-rv="rise" style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.12em; color:#f6dfd3; margin-bottom:14px">03 — TRUSTED BY</div>
+      <h2 data-rv="rise" data-rv-delay="60" style="margin:0 0 56px; font-family:'Montserrat',sans-serif; font-weight:600; font-size:clamp(40px, 5vw, 68px); letter-spacing:-0.025em; line-height:1.02; color:#fff8f1">Content created for:</h2>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:18px; margin-bottom:96px">
+      <div style="overflow:hidden; white-space:nowrap">
+        <div data-marquee="left" style="display:flex; align-items:center; gap:48px; width:max-content; will-change:transform; padding-right:48px">
+          <sc-for list="{{ marqueeA }}" as="b" hint-placeholder-count="6">
+            <span style="display:flex; align-items:center; gap:48px">
+              <span style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:clamp(36px, 4.2vw, 60px); letter-spacing:-0.02em; color:#fff8f1; white-space:nowrap">{{ b }}</span>
+              <span style="width:9px; height:9px; border-radius:50%; background:#eed28a; flex:none"></span>
+            </span>
+          </sc-for>
+        </div>
+      </div>
+      <div style="overflow:hidden; white-space:nowrap">
+        <div data-marquee="right" style="display:flex; align-items:center; gap:48px; width:max-content; will-change:transform; padding-right:48px">
+          <sc-for list="{{ marqueeB }}" as="b" hint-placeholder-count="6">
+            <span style="display:flex; align-items:center; gap:48px">
+              <span style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:clamp(36px, 4.2vw, 60px); letter-spacing:-0.02em; color:transparent; -webkit-text-stroke:1.5px #fff8f1; white-space:nowrap">{{ b }}</span>
+              <span style="width:9px; height:9px; border-radius:50%; background:#eed28a; flex:none"></span>
+            </span>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div style="max-width:1240px; margin:0 auto; padding:0 clamp(18px, 4vw, 32px); box-sizing:border-box">
+      <div data-rv="rise" style="display:flex; align-items:baseline; gap:16px; margin-bottom:36px">
+        <h3 style="margin:0; font-family:'Montserrat',sans-serif; font-weight:600; font-size:clamp(26px, 3vw, 38px); letter-spacing:-0.02em; color:#fff8f1">Kind words</h3>
+        <span style="font-family:'Caveat',cursive; font-weight:600; font-size:26px; color:#f6dfd3; transform:rotate(-2deg); display:inline-block; white-space:nowrap">— real ones, screenshots on request</span>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 290px), 1fr)); gap:24px">
+        <div data-rv="pop" data-rv-delay="0" style="background:#fffaf1; border-radius:24px; padding:32px 30px; box-shadow:0 18px 40px rgba(60,26,14,0.18); transform:rotate(-1.2deg); display:flex; flex-direction:column; gap:16px">
+          <span style="font-family:'Caveat',cursive; font-weight:700; font-size:54px; line-height:0.5; color:#c56138; padding-top:14px">“</span>
+          <p style="margin:0; font-size:15.5px; line-height:1.6; color:#3a3328; font-style:italic; text-wrap:pretty">Client quote goes here — the one where they say the video outperformed their paid ads.</p>
+          <div style="margin-top:auto; padding-top:8px; border-top:1px solid #e4dcc9">
+            <span style="display:block; font-family:'Montserrat',sans-serif; font-weight:600; font-size:14px; color:#1f1b14">Client name</span>
+            <span style="font-size:12.5px; color:#6b6354">Role · Brand</span>
+          </div>
+        </div>
+        <div data-rv="pop" data-rv-delay="90" style="background:#fffaf1; border-radius:24px; padding:32px 30px; box-shadow:0 18px 40px rgba(60,26,14,0.18); transform:rotate(0.8deg); display:flex; flex-direction:column; gap:16px; margin-top:18px">
+          <span style="font-family:'Caveat',cursive; font-weight:700; font-size:54px; line-height:0.5; color:#c56138; padding-top:14px">“</span>
+          <p style="margin:0; font-size:15.5px; line-height:1.6; color:#3a3328; font-style:italic; text-wrap:pretty">Client quote goes here — about the fast turnaround, the extra hook options, the easy revisions.</p>
+          <div style="margin-top:auto; padding-top:8px; border-top:1px solid #e4dcc9">
+            <span style="display:block; font-family:'Montserrat',sans-serif; font-weight:600; font-size:14px; color:#1f1b14">Client name</span>
+            <span style="font-size:12.5px; color:#6b6354">Role · Brand</span>
+          </div>
+        </div>
+        <div data-rv="pop" data-rv-delay="180" style="background:#fffaf1; border-radius:24px; padding:32px 30px; box-shadow:0 18px 40px rgba(60,26,14,0.18); transform:rotate(-0.6deg); display:flex; flex-direction:column; gap:16px">
+          <span style="font-family:'Caveat',cursive; font-weight:700; font-size:54px; line-height:0.5; color:#c56138; padding-top:14px">“</span>
+          <p style="margin:0; font-size:15.5px; line-height:1.6; color:#3a3328; font-style:italic; text-wrap:pretty">Client quote goes here — the “we're booking him again next quarter” one.</p>
+          <div style="margin-top:auto; padding-top:8px; border-top:1px solid #e4dcc9">
+            <span style="display:block; font-family:'Montserrat',sans-serif; font-weight:600; font-size:14px; color:#1f1b14">Client name</span>
+            <span style="font-size:12.5px; color:#6b6354">Role · Brand</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section id="services" data-screen-label="Services" data-bg="#f3ece0" style="background:transparent; padding:clamp(80px, 12vw, 120px) clamp(18px, 4vw, 32px); scroll-margin-top:clamp(64px, 9vw, 96px)">
+    <div style="max-width:1240px; margin:0 auto">
+      <div data-rv="rise" style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.12em; color:#c56138; margin-bottom:14px">04 — SERVICES</div>
+      <h2 data-rv="rise" data-rv-delay="60" style="margin:0 0 52px; font-family:'Montserrat',sans-serif; font-weight:600; font-size:clamp(40px, 5vw, 68px); letter-spacing:-0.025em; line-height:1.02; color:#1f1b14">What I can do for you.</h2>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap:24px; margin-bottom:28px">
+        <div data-rv="rise" data-rv-delay="0" style="background:#fffaf1; border:1px solid #e4dcc9; border-radius:28px; padding:36px 32px; box-shadow:0 2px 6px rgba(74,63,47,0.08), 0 1px 2px rgba(74,63,47,0.04); transition:all 240ms cubic-bezier(0.22,1,0.36,1); display:flex; flex-direction:column; gap:18px" style-hover="transform:translateY(-4px); box-shadow:0 18px 40px rgba(74,63,47,0.14)">
+          <span style="font-family:'Caveat',cursive; font-weight:700; font-size:44px; line-height:1; color:#c56138">01</span>
+          <h3 style="margin:0; font-family:'Montserrat',sans-serif; font-weight:600; font-size:23px; letter-spacing:-0.01em; color:#1f1b14">Video content</h3>
+          <div style="display:flex; flex-direction:column; gap:10px">
+            <span style="display:flex; gap:10px; font-size:15px; line-height:1.5; color:#3a3328"><span style="color:#6b8259">—</span>UGC &amp; paid media ads</span>
+            <span style="display:flex; gap:10px; font-size:15px; line-height:1.5; color:#3a3328"><span style="color:#6b8259">—</span>Product demos &amp; testimonials</span>
+            <span style="display:flex; gap:10px; font-size:15px; line-height:1.5; color:#3a3328"><span style="color:#6b8259">—</span>Script reads &amp; talking head</span>
+            <span style="display:flex; gap:10px; font-size:15px; line-height:1.5; color:#3a3328"><span style="color:#6b8259">—</span>B-roll: mountains, ocean, forests, beaches</span>
+          </div>
+        </div>
+        <div data-rv="rise" data-rv-delay="90" style="background:#fffaf1; border:1px solid #e4dcc9; border-radius:28px; padding:36px 32px; box-shadow:0 2px 6px rgba(74,63,47,0.08), 0 1px 2px rgba(74,63,47,0.04); transition:all 240ms cubic-bezier(0.22,1,0.36,1); display:flex; flex-direction:column; gap:18px" style-hover="transform:translateY(-4px); box-shadow:0 18px 40px rgba(74,63,47,0.14)">
+          <span style="font-family:'Caveat',cursive; font-weight:700; font-size:44px; line-height:1; color:#c56138">02</span>
+          <h3 style="margin:0; font-family:'Montserrat',sans-serif; font-weight:600; font-size:23px; letter-spacing:-0.01em; color:#1f1b14">Photography &amp; design</h3>
+          <div style="display:flex; flex-direction:column; gap:10px">
+            <span style="display:flex; gap:10px; font-size:15px; line-height:1.5; color:#3a3328"><span style="color:#6b8259">—</span>Product photography</span>
+            <span style="display:flex; gap:10px; font-size:15px; line-height:1.5; color:#3a3328"><span style="color:#6b8259">—</span>Videography</span>
+            <span style="display:flex; gap:10px; font-size:15px; line-height:1.5; color:#3a3328"><span style="color:#6b8259">—</span>Graphic design (10+ years)</span>
+          </div>
+        </div>
+        <div data-rv="rise" data-rv-delay="180" style="background:#fffaf1; border:1px solid #e4dcc9; border-radius:28px; padding:36px 32px; box-shadow:0 2px 6px rgba(74,63,47,0.08), 0 1px 2px rgba(74,63,47,0.04); transition:all 240ms cubic-bezier(0.22,1,0.36,1); display:flex; flex-direction:column; gap:18px" style-hover="transform:translateY(-4px); box-shadow:0 18px 40px rgba(74,63,47,0.14)">
+          <span style="font-family:'Caveat',cursive; font-weight:700; font-size:44px; line-height:1; color:#c56138">03</span>
+          <h3 style="margin:0; font-family:'Montserrat',sans-serif; font-weight:600; font-size:23px; letter-spacing:-0.01em; color:#1f1b14">Strategy &amp; scripting</h3>
+          <div style="display:flex; flex-direction:column; gap:10px">
+            <span style="display:flex; gap:10px; font-size:15px; line-height:1.5; color:#3a3328"><span style="color:#6b8259">—</span>Creative strategy</span>
+            <span style="display:flex; gap:10px; font-size:15px; line-height:1.5; color:#3a3328"><span style="color:#6b8259">—</span>Script writing &amp; concept ideation</span>
+            <span style="display:flex; gap:10px; font-size:15px; line-height:1.5; color:#3a3328"><span style="color:#6b8259">—</span>Social media management</span>
+          </div>
+        </div>
+      </div>
+
+      <div data-rv="rise" data-rv-delay="240" style="display:flex; align-items:center; justify-content:space-between; gap:24px; background:#e3e9dd; border-radius:32px; padding:20px clamp(18px, 3vw, 24px) 20px clamp(22px, 3.5vw, 36px); flex-wrap:wrap">
+        <span style="font-size:17px; font-weight:500; color:#43533a">Don't see what you need? I'm flexible.</span>
+        <a href="{{ mailtoHref }}" style="white-space:nowrap; font-size:15px; font-weight:600; color:#fffdf6; background:#556947; padding:14px 26px; border-radius:999px; text-decoration:none; transition:all 240ms cubic-bezier(0.22,1,0.36,1)" style-hover="background:#6b8259; transform:translateY(-2px)">Give me a shout</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WORK WITH ME ============ -->
+  <section id="work" data-screen-label="Work with me" data-bg="#faf6f0" style="background:transparent; padding:clamp(80px, 12vw, 120px) clamp(18px, 4vw, 32px); scroll-margin-top:clamp(64px, 9vw, 96px)">
+    <div style="max-width:1240px; margin:0 auto">
+      <div data-rv="rise" style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.12em; color:#c56138; margin-bottom:14px">05 — WORK WITH ME</div>
+      <div data-rv="rise" data-rv-delay="60" style="display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:clamp(48px, 6vw, 68px)">
+        <h2 style="margin:0; font-family:'Montserrat',sans-serif; font-weight:600; font-size:clamp(40px, 5vw, 68px); letter-spacing:-0.025em; line-height:1.02; color:#1f1b14; max-width:16ch">Simple to work with, on purpose.</h2>
+        
+      </div>
+
+      <!-- process -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap:clamp(20px, 3vw, 36px); margin-bottom:clamp(56px, 7vw, 80px)">
+        <div data-rv="rise" data-rv-delay="0" style="display:flex; flex-direction:column; gap:12px; padding-top:22px; border-top:1.5px solid #d9cfb8">
+          <span style="font-family:'Caveat',cursive; font-weight:700; font-size:40px; line-height:1; color:#c56138">01</span>
+          <h3 style="margin:0; font-family:'Montserrat',sans-serif; font-weight:600; font-size:20px; letter-spacing:-0.01em; color:#1f1b14">The brief</h3>
+          <p style="margin:0; font-size:15.5px; line-height:1.55; color:#3a3328; max-width:34ch; text-wrap:pretty">You send the product, the goal, and who it's for. I come back with hook concepts before anything films.</p>
+        </div>
+        <div data-rv="rise" data-rv-delay="90" style="display:flex; flex-direction:column; gap:12px; padding-top:22px; border-top:1.5px solid #d9cfb8">
+          <span style="font-family:'Caveat',cursive; font-weight:700; font-size:40px; line-height:1; color:#c56138">02</span>
+          <h3 style="margin:0; font-family:'Montserrat',sans-serif; font-weight:600; font-size:20px; letter-spacing:-0.01em; color:#1f1b14">The shoot</h3>
+          <p style="margin:0; font-size:15.5px; line-height:1.55; color:#3a3328; max-width:34ch; text-wrap:pretty">I film, edit, and cut multiple hook variations — no hand-holding, no chasing. First draft in 72 hours.</p>
+        </div>
+        <div data-rv="rise" data-rv-delay="180" style="display:flex; flex-direction:column; gap:12px; padding-top:22px; border-top:1.5px solid #d9cfb8">
+          <span style="font-family:'Caveat',cursive; font-weight:700; font-size:40px; line-height:1; color:#c56138">03</span>
+          <h3 style="margin:0; font-family:'Montserrat',sans-serif; font-weight:600; font-size:20px; letter-spacing:-0.01em; color:#1f1b14">The handoff</h3>
+          <p style="margin:0; font-size:15.5px; line-height:1.55; color:#3a3328; max-width:34ch; text-wrap:pretty">Raw + edited files, sized for organic and paid. Revisions are baked in, not billed extra.</p>
+        </div>
+      </div>
+
+      <!-- packages -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 290px), 1fr)); gap:24px; align-items:stretch">
+
+        
+
+        
+
+        
+      </div>
+
+      <!-- media kit CTA -->
+      
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" data-screen-label="Contact" data-bg="#556947" style="background:transparent; padding:clamp(100px, 14vw, 150px) clamp(18px, 4vw, 32px) 0; scroll-margin-top:clamp(64px, 9vw, 96px); position:relative; overflow:hidden">
+    <div style="max-width:1100px; margin:0 auto; text-align:center; display:flex; flex-direction:column; align-items:center; gap:8px">
+      <span data-rv="pop" style="font-family:'Caveat',cursive; font-weight:600; font-size:36px; color:#eed28a; transform:rotate(-2.5deg); display:inline-block; white-space:nowrap">Sound like a fit?</span>
+      <h2 data-rv="rise" data-rv-delay="60" style="margin:0; font-family:'Montserrat',sans-serif; font-weight:600; font-size:clamp(64px, 10vw, 150px); letter-spacing:-0.035em; line-height:0.95; color:#fffdf6">Let's talk.</h2>
+      <p data-rv="rise" data-rv-delay="120" style="margin:18px 0 36px; font-size:18px; line-height:1.6; color:rgba(255,253,246,0.78); max-width:48ch; text-wrap:pretty">
+        Tell me what's on your mind. I'll bring the ideas, strategy, and creativity to the table.
+      </p>
+
+      <button data-rv="rise" data-rv-delay="180" onClick="{{ copyEmail }}" title="Click to copy" style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:clamp(22px, 3.4vw, 44px); letter-spacing:-0.02em; color:#fffdf6; background:transparent; border:none; cursor:pointer; padding:0 0 6px; border-bottom:3px solid #e29876; max-width:100%; overflow-wrap:anywhere; transition:all 240ms cubic-bezier(0.22,1,0.36,1)" style-hover="color:#eed28a; border-bottom-color:#eed28a; transform:translateY(-2px)">{{ email }}</button>
+      <span data-rv="fade" data-rv-delay="240" style="font-family:'JetBrains Mono',monospace; font-size:12px; color:rgba(255,253,246,0.55); margin-top:8px">click to copy · replies within 72 hours</span>
+
+      <div data-rv="rise" data-rv-delay="300" style="display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap; margin-top:44px">
+        <a href="https://x.com/mathewchiangugc" target="_blank" rel="noopener" style="font-size:14px; font-weight:600; color:#fffdf6; border:1.5px solid rgba(255,253,246,0.35); padding:11px 22px; border-radius:999px; text-decoration:none; transition:all 240ms cubic-bezier(0.22,1,0.36,1)" style-hover="background:rgba(255,253,246,0.12); border-color:#fffdf6; transform:translateY(-2px)">X · @mathewchiangugc</a>
+        <a href="https://www.instagram.com/mathewchiang.ugc" target="_blank" rel="noopener" style="font-size:14px; font-weight:600; color:#fffdf6; border:1.5px solid rgba(255,253,246,0.35); padding:11px 22px; border-radius:999px; text-decoration:none; transition:all 240ms cubic-bezier(0.22,1,0.36,1)" style-hover="background:rgba(255,253,246,0.12); border-color:#fffdf6; transform:translateY(-2px)">Instagram · @mathewchiang.ugc</a>
+        <a href="https://www.tiktok.com/@mathewchiang.ugc" target="_blank" rel="noopener" style="font-size:14px; font-weight:600; color:#fffdf6; border:1.5px solid rgba(255,253,246,0.35); padding:11px 22px; border-radius:999px; text-decoration:none; transition:all 240ms cubic-bezier(0.22,1,0.36,1)" style-hover="background:rgba(255,253,246,0.12); border-color:#fffdf6; transform:translateY(-2px)">TikTok · @mathewchiang.ugc</a>
+        <a href="https://www.instagram.com/keeparloprofile" target="_blank" rel="noopener" style="font-size:14px; font-weight:600; color:#eed28a; border:1.5px solid rgba(238,210,138,0.5); padding:11px 22px; border-radius:999px; text-decoration:none; transition:all 240ms cubic-bezier(0.22,1,0.36,1)" style-hover="background:rgba(238,210,138,0.14); transform:translateY(-2px)">Arlo's IG · @keeparloprofile</a>
+      </div>
+    </div>
+
+    <div style="max-width:1240px; margin:110px auto 0; padding:26px 0 30px; border-top:1px solid rgba(255,253,246,0.18); display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap">
+      <span style="font-size:13px; color:rgba(255,253,246,0.55)">© 2026 Mathew Chiang. All rights reserved.</span>
+      <span style="font-family:'Caveat',cursive; font-weight:600; font-size:22px; color:rgba(255,253,246,0.7); transform:rotate(-1.5deg); display:inline-block">made between patients</span>
+    </div>
+  </section>
+
+  <!-- ============ INTRO LOADER ============ -->
+  <sc-if value="{{ showIntro }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed; inset:0; z-index:100; background:#556947; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; transform:{{ introTransform }}; transition:transform 760ms cubic-bezier(0.76, 0, 0.24, 1); will-change:transform">
+      <span style="font-family:'Caveat',cursive; font-weight:600; font-size:clamp(40px, 4.6vw, 64px); color:#eed28a; transform:rotate(-2deg); line-height:1">mathew chiang</span>
+      <span style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.16em; color:rgba(255,253,246,0.75)">LOADING {{ introPct }}%</span>
+    </div>
+  </sc-if>
+
+  <!-- ============ LIGHTBOX ============ -->
+  <sc-if value="{{ lightbox }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeLightbox }}" data-screen-label="Video lightbox" style="position:fixed; inset:0; z-index:110; background:rgba(31,27,20,0.78); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); display:flex; align-items:center; justify-content:center; padding:clamp(14px, 3vw, 40px); box-sizing:border-box; animation:menu-fade-in 240ms cubic-bezier(0.22,1,0.36,1) both">
+      <div onClick="{{ stopProp }}" style="display:flex; flex-direction:column; align-items:center; gap:14px; max-width:100%; animation:lb-pop 420ms cubic-bezier(0.34,1.56,0.64,1) both">
+        <div style="position:relative; height:min(78vh, 760px); aspect-ratio:9/16; max-width:88vw; background:#1f1b14; border-radius:22px; overflow:hidden; box-shadow:0 40px 100px rgba(0,0,0,0.5)">
+          <iframe src="{{ lightboxUrl }}" title="{{ lightboxTitle }}" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture; web-share" allowfullscreen="allowfullscreen" style="position:absolute; inset:0; width:100%; height:100%; border:none"></iframe>
+        </div>
+        <div style="display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; justify-content:center">
+          <span style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:16px; color:#fffaf1">{{ lightboxTitle }}</span>
+          <span style="font-size:13px; color:rgba(255,250,241,0.6)">{{ lightboxMeta }}</span>
+        </div>
+      </div>
+      <button onClick="{{ closeLightbox }}" aria-label="Close video" style="position:absolute; top:clamp(14px, 2.4vw, 26px); right:clamp(14px, 2.4vw, 26px); width:52px; height:52px; border-radius:999px; border:1.5px solid rgba(255,250,241,0.4); background:rgba(31,27,20,0.5); color:#fffaf1; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; transition:all 280ms cubic-bezier(0.34,1.56,0.64,1)" style-hover="background:rgba(255,250,241,0.16); transform:rotate(90deg)" style-active="transform:scale(0.92)">✕</button>
+    </div>
+  </sc-if>
+
+  <!-- ============ TOAST ============ -->
+  <sc-if value="{{ copied }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed; bottom:28px; left:50%; transform:translateX(-50%); z-index:120; background:#1f1b14; color:#fffaf1; font-size:14px; font-weight:500; padding:13px 26px; border-radius:999px; box-shadow:0 18px 40px rgba(74,63,47,0.3); display:flex; align-items:center; gap:10px">
+      <span style="width:8px; height:8px; border-radius:50%; background:#869d75"></span>
+      Email copied — talk soon
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const VIDEOS = [
+  { brand: 'KiloCode', cat: 'Tech', meta: 'Talking head · product demo', livid: '_mHs2v7ED7Dl' },
+  { brand: 'vFlat Scan', cat: 'Tech', meta: 'Talking head · product demo', livid: 'DWi4MELLKCnt' },
+  { brand: 'Constant Contact', cat: 'SaaS', meta: 'UGC · product demo', livid: 'BrACFOf5w0Ag' },
+  { brand: 'Axel AI', cat: 'Tech', meta: 'B-roll · voiceover', livid: 'H1tWDlsT9nbC' },
+  { brand: 'Marblism', cat: 'Tech', meta: 'Talking head · product demo', livid: 'IWRJv_sSno3x' },
+  { brand: 'Constant Contact', cat: 'SaaS', meta: 'Talking head · subs', livid: 'FNkXO7lkhPMH' },
+  { brand: 'Proats', cat: 'Food / Lifestyle', meta: 'Talking head · B-roll', livid: 'XuRH8vK-OK5e' },
+  { brand: 'Flashfood', cat: 'Food / Lifestyle', meta: 'Talking head · B-roll', livid: 'X_1b2zAxz9Um' },
+  { brand: 'Wonderdog', cat: 'Lifestyle', meta: 'Talking head · captions', livid: 'RotbGVxmYshI' },
+  { brand: 'HolaFly', cat: 'Travel', meta: 'Talking head · B-roll', livid: 'NW4XdUfqY_97' },
+  { brand: 'GoMoWorld', cat: 'Travel', meta: 'Talking head · B-roll', livid: 'G8vVQD5Rktb3' },
+  { brand: 'Interac Debit', cat: 'Finance', meta: 'UGC · talking head', livid: 'oEMhv5ihChgp' },
+];
+
+const BRANDS = ['Korean Air', 'Manus', 'Pelvini', 'West Paw', 'Proats', 'Flashfood', 'Wonderdog', 'Luma', 'Zwilling', 'JobWizard.ai', 'vFlat', 'KiloCode', 'HolaFly', 'GoMoWorld', 'Constant Contact', 'Marblism', 'Interac', 'Storylane', 'Okanagan Hound', 'Tavendi', 'Axel AI', 'notta AI', 'HeartMoments', 'ScoreGO'];
+
+class Component extends DCLogic {
+  state = { copied: false, playing: {}, introOn: true, introPct: 0, introLift: false, clock: '', hoverTile: null, heroSlide: 0, compact: false, menuOpen: false, filter: 'All', gridFlip: false, lightbox: null };
+
+  HERO_SLOTS = ['hero-slide-1', 'hero-slide-2', 'hero-slide-3'];
+
+  TILES = [
+    { id: 'me-1', rot: -4, desc: 'dog dad to one very good boy' },
+    { id: 'me-2', rot: 3, desc: 'drug dealer by day (pharmacist, relax)' },
+    { id: 'me-3', rot: -2, desc: 'yaps about personal finance, tech & AI' },
+    { id: 'me-4', rot: 4, desc: 'hiker · tennis · pickleball' },
+    { id: 'me-5', rot: -3, desc: 'low-code AI automation tinkerer' },
+    { id: 'me-6', rot: 2, desc: 'coffee before words, always' }
+  ];
+
+  componentDidMount() {
+    this.startClock();
+    this.watchViewport();
+    this._onKey = (e) => {
+      if (e.key === 'Escape') {
+        if (this.state.lightbox) this.closeLightbox();
+        else if (this.state.menuOpen) this.closeMenu();
+      }
+    };
+    window.addEventListener('keydown', this._onKey);
+    this._heroInt = setInterval(() => {
+      if (this._unmounted) return;
+      this.setState((s) => ({ heroSlide: (s.heroSlide + 1) % this.HERO_SLOTS.length }));
+    }, 2800);
+    this._t0 = setTimeout(() => {
+      this.setupBgMorph();
+      this.runIntro();
+    }, 60);
+  }
+
+  startClock() {
+    const tick = () => {
+      if (this._unmounted) return;
+      let t;
+      try {
+        t = new Date().toLocaleTimeString('en-GB', { timeZone: 'America/Vancouver', hour12: false });
+      } catch (e) {
+        t = new Date().toLocaleTimeString('en-GB', { hour12: false });
+      }
+      this.setState({ clock: t });
+    };
+    tick();
+    this._clockInt = setInterval(tick, 1000);
+  }
+
+  runIntro() {
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) {
+      this.setState({ introOn: false, introLift: true });
+      this._t = setTimeout(() => this.setupMotion(), 80);
+      return;
+    }
+    let pct = 0;
+    this._introInt = setInterval(() => {
+      if (this._unmounted) { clearInterval(this._introInt); return; }
+      pct = Math.min(100, pct + 3 + Math.round(Math.random() * 7));
+      this.setState({ introPct: pct });
+      if (pct >= 100) {
+        clearInterval(this._introInt);
+        this.setState({ introLift: true });
+        this._t = setTimeout(() => this.setupMotion(), 220);
+        this._introEnd = setTimeout(() => this.setState({ introOn: false }), 820);
+      }
+    }, 34);
+    // hard safety: never leave the curtain stuck over the page
+    this._introSafety = setTimeout(() => {
+      clearInterval(this._introInt);
+      if (!this._unmounted && this.state.introOn) this.setState({ introOn: false, introLift: true });
+      this.setupMotion();
+    }, 4000);
+  }
+
+  setupBgMorph() {
+    const apply = () => {
+      const secs = document.querySelectorAll('section[data-bg]');
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      let bg = '#faf6f0';
+      secs.forEach((s) => {
+        if (s.getBoundingClientRect().top <= vh * 0.72) bg = s.getAttribute('data-bg');
+      });
+      if (bg !== this._bg) {
+        this._bg = bg;
+        const root = document.getElementById('pagebg');
+        if (root) root.style.backgroundColor = bg;
+        document.body.style.backgroundColor = bg;
+        document.documentElement.style.backgroundColor = bg;
+      }
+    };
+    // Poll on every frame — robust no matter which element actually scrolls
+    // (window, body, or a host wrapper). Cheap: 6 rect reads, DOM only
+    // touched when the active section changes.
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const drift = () => {
+      if (reduced) return;
+      const hero = document.getElementById('home');
+      if (!hero) return;
+      const r = hero.getBoundingClientRect();
+      if (!r.height) return;
+      let p = -r.top / r.height;
+      p = Math.max(0, Math.min(1, p));
+      document.querySelectorAll('[data-drift]').forEach((el) => {
+        const dir = parseFloat(el.getAttribute('data-drift')) || 0;
+        el.style.transform = 'translateX(' + (dir * p * 64).toFixed(1) + 'px)';
+      });
+    };
+    const loop = () => {
+      if (this._unmounted) return;
+      apply();
+      drift();
+      this._bgRaf = requestAnimationFrame(loop);
+    };
+    this._bgRaf = requestAnimationFrame(loop);
+    apply();
+  }
+
+  componentWillUnmount() {
+    this._unmounted = true;
+    clearTimeout(this._t);
+    clearTimeout(this._ct);
+    clearTimeout(this._t2);
+    clearTimeout(this._t3);
+    clearTimeout(this._gate);
+    clearTimeout(this._wd);
+    clearTimeout(this._t0);
+    clearTimeout(this._introEnd);
+    clearTimeout(this._introSafety);
+    clearInterval(this._introInt);
+    clearInterval(this._clockInt);
+    clearInterval(this._heroInt);
+    if (this._onResizeNav) window.removeEventListener('resize', this._onResizeNav);
+    if (this._onKey) window.removeEventListener('keydown', this._onKey);
+    try { document.body.style.overflow = ''; } catch (e) {}
+    if (this._bgRaf) cancelAnimationFrame(this._bgRaf);
+    if (this._onScroll) {
+      document.removeEventListener('scroll', this._onScroll, true);
+      window.removeEventListener('resize', this._onScroll);
+    }
+  }
+
+  setupMotion() {
+    if (this._motionStarted) return;
+    this._motionStarted = true;
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
+
+    // Only animate if the animation timeline is actually advancing.
+    // In throttled/offscreen iframes rAF never fires and WAAPI animations
+    // freeze at their first keyframe (opacity 0) — content must stay
+    // visible by default in that case, so we gate ALL animation setup
+    // on a live rAF tick racing a timeout.
+    let started = false;
+    const begin = () => {
+      if (started || this._unmounted) return;
+      started = true;
+      this.startAnimations();
+    };
+    const rafId = requestAnimationFrame(() => {
+      clearTimeout(this._gate);
+      begin();
+    });
+    this._gate = setTimeout(() => {
+      cancelAnimationFrame(rafId);
+      started = true; // timeline frozen — skip all animations, leave content visible
+    }, 300);
+  }
+
+  startAnimations() {
+    const items = [];
+    const allAnims = [];
+    document.querySelectorAll('[data-rv]').forEach((el) => {
+      if (el.__rvAnim) return;
+      const delay = parseInt(el.getAttribute('data-rv-delay') || '0', 10);
+      const kind = el.getAttribute('data-rv');
+      const from = kind === 'pop'
+        ? { opacity: 0, transform: 'scale(0.94) translateY(16px)' }
+        : kind === 'fade'
+          ? { opacity: 0 }
+          : { opacity: 0, transform: 'translateY(38px)' };
+      const anim = el.animate(
+        [from, { opacity: 1, transform: 'none' }],
+        { duration: 850, delay, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'both' }
+      );
+      anim.pause();
+      el.__rvAnim = anim;
+      items.push({ el: el, anim: anim });
+      allAnims.push(anim);
+    });
+    this._rvItems = items;
+    this._allAnims = allAnims;
+
+    // Watchdog: if a played animation hasn't advanced after 900ms the
+    // timeline froze mid-flight — cancel everything so fill:'both' styles
+    // are dropped and content returns to its naturally visible state.
+    this._wd = setTimeout(() => {
+      const playing = allAnims.filter((a) => a.playState === 'running');
+      if (playing.length && playing.every((a) => !a.currentTime)) {
+        allAnims.forEach((a) => a.cancel());
+        if (this._mq) this._mq.forEach((a) => a.cancel());
+        this._rvItems = [];
+      }
+    }, 900);
+
+    // Scroll/resize-driven reveal (IntersectionObserver is unreliable in some embeds)
+    const check = () => {
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const remaining = [];
+      this._rvItems.forEach((it) => {
+        const r = it.el.getBoundingClientRect();
+        if (r.top < vh * 0.94 && r.bottom > 0) {
+          it.anim.play();
+        } else {
+          remaining.push(it);
+        }
+      });
+      this._rvItems = remaining;
+      if (this._rvItems.length === 0 && this._onScroll) {
+        document.removeEventListener('scroll', this._onScroll, true);
+        window.removeEventListener('resize', this._onScroll);
+        this._onScroll = null;
+      }
+    };
+    this._onScroll = () => {
+      if (this._raf) return;
+      this._raf = requestAnimationFrame(() => {
+        this._raf = null;
+        check();
+      });
+    };
+    document.addEventListener('scroll', this._onScroll, true);
+    window.addEventListener('resize', this._onScroll);
+    check();
+    // Re-check after fonts/layout settle
+    this._t2 = setTimeout(check, 400);
+    this._t3 = setTimeout(check, 1200);
+
+    this._mq = [];
+    document.querySelectorAll('[data-float]').forEach((el, idx) => {
+      if (el.__floatAnim) return;
+      const amp = parseFloat(el.getAttribute('data-float')) || 10;
+      el.__floatAnim = el.animate(
+        [
+          { transform: 'translateY(0px)' },
+          { transform: 'translateY(-' + amp + 'px)' },
+        ],
+        {
+          duration: 5200 + idx * 1100,
+          iterations: Infinity,
+          direction: 'alternate',
+          easing: 'ease-in-out',
+          composite: 'add',
+          delay: idx * 600,
+        }
+      );
+      this._mq.push(el.__floatAnim);
+    });
+    document.querySelectorAll('[data-marquee]').forEach((track) => {
+      if (track.__mqAnim) return;
+      const dir = track.getAttribute('data-marquee');
+      const kf = dir === 'right'
+        ? [{ transform: 'translateX(-50%)' }, { transform: 'translateX(0)' }]
+        : [{ transform: 'translateX(0)' }, { transform: 'translateX(-50%)' }];
+      track.__mqAnim = track.animate(kf, { duration: 46000, iterations: Infinity, easing: 'linear' });
+      this._mq.push(track.__mqAnim);
+    });
+  }
+
+  watchViewport() {
+    const measure = () => {
+      if (this._unmounted) return;
+      const w = window.innerWidth || document.documentElement.clientWidth;
+      const compact = w < 1024;
+      if (compact !== this.state.compact) {
+        const patch = { compact: compact };
+        if (!compact && this.state.menuOpen) {
+          patch.menuOpen = false;
+          try { document.body.style.overflow = ''; } catch (e) {}
+        }
+        this.setState(patch);
+      }
+    };
+    this._onResizeNav = measure;
+    window.addEventListener('resize', measure);
+    measure();
+  }
+
+  toggleMenu = () => {
+    this.setState((s) => {
+      const open = !s.menuOpen;
+      try { document.body.style.overflow = open ? 'hidden' : ''; } catch (e) {}
+      return { menuOpen: open };
+    });
+  };
+
+  closeMenu = () => {
+    try { document.body.style.overflow = ''; } catch (e) {}
+    this.setState({ menuOpen: false });
+  };
+
+  openLightbox = (url, v) => {
+    try { document.body.style.overflow = 'hidden'; } catch (e) {}
+    this.setState({ lightbox: { url: url, title: v.brand, meta: v.meta } });
+  };
+
+  closeLightbox = () => {
+    try { document.body.style.overflow = ''; } catch (e) {}
+    this.setState({ lightbox: null });
+  };
+
+  stopProp = (e) => e.stopPropagation();
+
+  // Assembled at runtime so CDN email-obfuscation rewriters never see a literal address
+  get email() {
+    return ['info', 'mathewchiang-ugc.com'].join('@');
+  }
+
+  copyEmail = () => {
+    const email = this.email;
+    const done = () => {
+      this.setState({ copied: true });
+      clearTimeout(this._ct);
+      this._ct = setTimeout(() => this.setState({ copied: false }), 2400);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(email).then(done, done);
+    } else {
+      done();
+    }
+  };
+
+  renderVals() {
+    const bucketOf = (v) => {
+      if (v.slot) return 'Open';
+      if (v.cat.indexOf('Tech') >= 0 || v.cat.indexOf('SaaS') >= 0) return 'Tech';
+      if (v.cat.indexOf('Lifestyle') >= 0) return 'Lifestyle';
+      if (v.cat.indexOf('Finance') >= 0) return 'Finance';
+      if (v.cat.indexOf('Sports') >= 0 || v.cat.indexOf('Travel') >= 0) return 'Sports & travel';
+      return 'Other';
+    };
+    const activeFilter = this.state.filter;
+    const shown = VIDEOS.filter((v) => activeFilter === 'All' ? true : bucketOf(v) === activeFilter);
+    const videos = shown.map((v, i) => {
+      const playUrl = v.livid
+        ? 'https://livid.com/embed/' + v.livid
+        : (v.id ? 'https://www.youtube-nocookie.com/embed/' + v.id + '?autoplay=1&rel=0&playsinline=1' : null);
+      const hasVid = !!playUrl;
+      return {
+        brand: v.brand,
+        cat: v.cat,
+        meta: v.meta,
+        initial: v.slot ? '+' : v.brand.charAt(0),
+        thumb: v.id ? 'https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg' : null,
+        showPlay: hasVid,
+        showNote: !hasVid,
+        cursor: hasVid ? 'pointer' : 'default',
+        onPlay: hasVid ? () => this.openLightbox(playUrl, v) : undefined,
+        delay: (i % 4) * 70,
+      };
+    });
+    const counts = {};
+    VIDEOS.forEach((v) => { const b = bucketOf(v); counts[b] = (counts[b] || 0) + 1; });
+    const filters = ['All', 'Tech', 'Lifestyle', 'Finance', 'Sports & travel'].map((label) => {
+      const isActive = activeFilter === label;
+      return {
+        label: label,
+        count: label === 'All' ? String(VIDEOS.length) : String(counts[label] || 0),
+        onPick: () => this.setState((s) => ({ filter: label, gridFlip: !s.gridFlip })),
+        color: isActive ? '#fff8f1' : 'rgba(255,253,246,0.85)',
+        bg: isActive ? '#d57b52' : 'transparent',
+        border: isActive ? '#d57b52' : 'rgba(255,253,246,0.3)',
+      };
+    });
+
+    const half1 = BRANDS.slice(0, 9);
+    const half2 = BRANDS.slice(9);
+
+    return {
+      videos: videos,
+      stats: [
+        { value: '45', unit: '+', label: 'short-form videos shipped', delay: 0 },
+        { value: '18', unit: '', label: 'brands partnered with', delay: 70 },
+        { value: '12M', unit: '+', label: 'organic views driven', delay: 140 },
+        { value: '72', unit: 'h', label: 'average first-draft turnaround', delay: 210 },
+      ],
+      filters: filters,
+      gridAnim: (this.state.gridFlip ? 'tile-in-a' : 'tile-in-b') + ' 420ms cubic-bezier(0.22, 1, 0.36, 1) both',
+      lightbox: !!this.state.lightbox,
+      lightboxUrl: this.state.lightbox ? this.state.lightbox.url : '',
+      lightboxTitle: this.state.lightbox ? this.state.lightbox.title : '',
+      lightboxMeta: this.state.lightbox ? this.state.lightbox.meta : '',
+      closeLightbox: this.closeLightbox,
+      stopProp: this.stopProp,
+      marqueeA: half1.concat(half1),
+      marqueeB: half2.concat(half2),
+      copied: this.state.copied,
+      clock: this.state.clock,
+      heroSlides: this.HERO_SLOTS.map((id, i) => {
+        const active = this.state.heroSlide === i;
+        return {
+          id: id,
+          placeholder: i === 0 ? 'Drop a photo of you' : 'Drop another photo',
+          wrapStyle: {
+            position: 'absolute',
+            inset: 0,
+            opacity: active ? 1 : 0,
+            zIndex: active ? 2 : 1,
+            transform: active ? undefined : 'scale(1.085)',
+            animation: active ? 'hero-kenburns 3200ms cubic-bezier(0.22, 1, 0.36, 1) both' : 'none',
+            transition: 'opacity 1200ms cubic-bezier(0.22, 1, 0.36, 1)',
+            pointerEvents: active ? 'auto' : 'none'
+          }
+        };
+      }),
+      profileTiles: this.TILES.map((t, i) => ({
+        id: t.id,
+        rot: t.rot,
+        desc: t.desc,
+        active: this.state.hoverTile === i,
+        onEnter: () => this.setState({ hoverTile: i }),
+        onLeave: () => this.setState((s) => (s.hoverTile === i ? { hoverTile: null } : null))
+      })),
+      showIntro: this.state.introOn,
+      introPct: this.state.introPct,
+      introTransform: this.state.introLift ? 'translateY(-101%)' : 'translateY(0)',
+      copyEmail: this.copyEmail,
+      email: this.email,
+      desktopNav: !this.state.compact,
+      compactNav: this.state.compact,
+      menuOpen: this.state.menuOpen,
+      toggleMenu: this.toggleMenu,
+      closeMenu: this.closeMenu,
+      barTopT: this.state.menuOpen ? 'translateY(5px) rotate(45deg)' : 'none',
+      barBotT: this.state.menuOpen ? 'translateY(-5px) rotate(-45deg)' : 'none',
+      showScrollHint: !this.state.compact,
+      menuLinks: [
+        { href: '#videos', label: 'Videos', num: '01', delay: '40ms' },
+        { href: '#about', label: 'About', num: '02', delay: '90ms' },
+        { href: '#brands', label: 'Brands', num: '03', delay: '140ms' },
+        { href: '#services', label: 'Services', num: '04', delay: '190ms' },
+        { href: '#work', label: 'Work with me', num: '05', delay: '215ms' },
+        { href: '#contact', label: 'Contact', num: '06', delay: '240ms' },
+      ],
+      mailtoHref: 'mailto:' + this.email + '?subject=Got%20a%20brief',
+      mediaKitHref: 'mailto:' + this.email + '?subject=Media%20kit%20please',
+    };
+  }
+}
+</script>
+</body>
+</html>
