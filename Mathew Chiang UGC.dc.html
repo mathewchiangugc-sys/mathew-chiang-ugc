@@ -179,33 +179,27 @@
 
       <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap:clamp(14px, 2vw, 22px); animation:{{ gridAnim }}">
         <sc-for list="{{ videos }}" as="v" hint-placeholder-count="16">
-          <div data-rv="pop" data-rv-delay="{{ v.delay }}" style="position:relative; aspect-ratio:9/16; border-radius:18px; overflow:hidden; background:#3c4a36; border:1px solid rgba(255,253,246,0.08); transition:transform 240ms cubic-bezier(0.22,1,0.36,1), box-shadow 240ms cubic-bezier(0.22,1,0.36,1)" style-hover="transform:translateY(-5px); box-shadow:0 18px 40px rgba(0,0,0,0.3)">
-              <sc-if value="{{ v.playing }}" hint-placeholder-val="{{ false }}">
-                <iframe src="{{ v.playUrl }}" title="{{ v.brand }}" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture; playsinline" allowfullscreen style="position:absolute; inset:0; width:100%; height:100%; border:none"></iframe>
-                <button onClick="{{ v.onStop }}" aria-label="Close video" style="position:absolute; top:10px; right:10px; z-index:10; width:36px; height:36px; border-radius:50%; background:rgba(31,27,20,0.55); border:1px solid rgba(255,253,246,0.3); color:#fffdf6; font-size:15px; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; transition:background 200ms" style-hover="background:rgba(31,27,20,0.85)">✕</button>
-              </sc-if>
-              <sc-if value="{{ v.showContent }}" hint-placeholder-val="{{ true }}">
-                <div onClick="{{ v.onPlay }}" style="position:absolute; inset:0; cursor:{{ v.cursor }}">
-                  <sc-if value="{{ v.thumb }}" hint-placeholder-val="{{ false }}">
-                    <div role="img" aria-label="{{ v.brand }}" style="position:absolute; inset:0; background-image:url('{{ v.thumb }}'); background-size:cover; background-position:center"></div>
+          <div data-rv="pop" data-rv-delay="{{ v.delay }}" onClick="{{ v.onPlay }}" style="position:relative; aspect-ratio:9/16; border-radius:18px; overflow:hidden; background:#3c4a36; border:1px solid rgba(255,253,246,0.08); cursor:{{ v.cursor }}; transition:transform 240ms cubic-bezier(0.22,1,0.36,1), box-shadow 240ms cubic-bezier(0.22,1,0.36,1)" style-hover="transform:translateY(-5px); box-shadow:0 18px 40px rgba(0,0,0,0.3)">
+              <div style="position:absolute; inset:0">
+                <sc-if value="{{ v.thumb }}" hint-placeholder-val="{{ false }}">
+                  <div role="img" aria-label="{{ v.brand }}" style="position:absolute; inset:0; background-image:url('{{ v.thumb }}'); background-size:cover; background-position:center"></div>
+                </sc-if>
+                <sc-if value="{{ v.showNote }}" hint-placeholder-val="{{ true }}">
+                  <span style="position:absolute; top:50%; left:50%; transform:translate(-50%,-58%); font-family:'Montserrat',sans-serif; font-weight:600; font-size:120px; color:rgba(255,253,246,0.07); line-height:1">{{ v.initial }}</span>
+                </sc-if>
+                <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(26,22,17,0.12) 0%, rgba(26,22,17,0) 35%, rgba(26,22,17,0) 55%, rgba(26,22,17,0.78) 100%)"></div>
+                <span style="position:absolute; top:14px; left:14px; font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#fffdf6; background:rgba(31,27,20,0.45); backdrop-filter:blur(6px); padding:5px 12px; border-radius:999px">{{ v.cat }}</span>
+                <sc-if value="{{ v.showPlay }}" hint-placeholder-val="{{ false }}">
+                  <span style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:62px; height:62px; border-radius:50%; background:#d57b52; box-shadow:0 10px 30px rgba(197,97,56,0.45); display:flex; align-items:center; justify-content:center; color:#fff8f1; font-size:20px; padding-left:4px; box-sizing:border-box">▶</span>
+                </sc-if>
+                <div style="position:absolute; left:16px; right:16px; bottom:14px; display:flex; flex-direction:column; gap:3px">
+                  <span style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:16px; color:#fffdf6">{{ v.brand }}</span>
+                  <span style="font-size:12px; color:rgba(255,253,246,0.66)">{{ v.meta }}</span>
+                  <sc-if value="{{ v.showNote }}" hint-placeholder-val="{{ false }}">
+                    <span style="font-family:'JetBrains Mono',monospace; font-size:10px; color:rgba(255,253,246,0.4); margin-top:4px">video coming soon</span>
                   </sc-if>
-                  <sc-if value="{{ v.showNote }}" hint-placeholder-val="{{ true }}">
-                    <span style="position:absolute; top:50%; left:50%; transform:translate(-50%,-58%); font-family:'Montserrat',sans-serif; font-weight:600; font-size:120px; color:rgba(255,253,246,0.07); line-height:1">{{ v.initial }}</span>
-                  </sc-if>
-                  <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(26,22,17,0.12) 0%, rgba(26,22,17,0) 35%, rgba(26,22,17,0) 55%, rgba(26,22,17,0.78) 100%)"></div>
-                  <span style="position:absolute; top:14px; left:14px; font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#fffdf6; background:rgba(31,27,20,0.45); backdrop-filter:blur(6px); padding:5px 12px; border-radius:999px">{{ v.cat }}</span>
-                  <sc-if value="{{ v.showPlay }}" hint-placeholder-val="{{ false }}">
-                    <span style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:62px; height:62px; border-radius:50%; background:#d57b52; box-shadow:0 10px 30px rgba(197,97,56,0.45); display:flex; align-items:center; justify-content:center; color:#fff8f1; font-size:20px; padding-left:4px; box-sizing:border-box">▶</span>
-                  </sc-if>
-                  <div style="position:absolute; left:16px; right:16px; bottom:14px; display:flex; flex-direction:column; gap:3px">
-                    <span style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:16px; color:#fffdf6">{{ v.brand }}</span>
-                    <span style="font-size:12px; color:rgba(255,253,246,0.66)">{{ v.meta }}</span>
-                    <sc-if value="{{ v.showNote }}" hint-placeholder-val="{{ false }}">
-                      <span style="font-family:'JetBrains Mono',monospace; font-size:10px; color:rgba(255,253,246,0.4); margin-top:4px">video coming soon</span>
-                    </sc-if>
-                  </div>
                 </div>
-              </sc-if>
+              </div>
           </div>
         </sc-for>
       </div>
@@ -350,28 +344,26 @@
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 290px), 1fr)); gap:24px">
         <div data-rv="pop" data-rv-delay="0" style="background:#fffaf1; border-radius:24px; padding:32px 30px; box-shadow:0 18px 40px rgba(60,26,14,0.18); transform:rotate(-1.2deg); display:flex; flex-direction:column; gap:16px">
           <span style="font-family:'Caveat',cursive; font-weight:700; font-size:54px; line-height:0.5; color:#c56138; padding-top:14px">“</span>
-          <p style="margin:0; font-size:15.5px; line-height:1.6; color:#3a3328; font-style:italic; text-wrap:pretty">We really enjoyed working with Mat. JobWizard is an AI job copilot that helps job applicants automate and streamline their job search experience, and Mat quickly grasped our core value proposition. He captured the key features of our product and presented them in a clear, intuitive way that makes it easy for audiences to understand how to use it. From the start, he brought thoughtful ideas and developed a strong shot list and script draft. The final video was highly engaging and visually compelling. We approved the first video immediately without any revisions. We would absolutely love to work with him again.</p>
+          <p style="margin:0; font-size:15.5px; line-height:1.6; color:#3a3328; font-style:italic; text-wrap:pretty">Client quote goes here — the one where they say the video outperformed their paid ads.</p>
           <div style="margin-top:auto; padding-top:8px; border-top:1px solid #e4dcc9">
-            <span style="display:block; font-family:'Montserrat',sans-serif; font-weight:600; font-size:14px; color:#1f1b14">Rae</span>
-            <span style="font-size:12.5px; color:#6b6354">JobWizard.ai</span>
+            <span style="display:block; font-family:'Montserrat',sans-serif; font-weight:600; font-size:14px; color:#1f1b14">Client name</span>
+            <span style="font-size:12.5px; color:#6b6354">Role · Brand</span>
           </div>
         </div>
         <div data-rv="pop" data-rv-delay="90" style="background:#fffaf1; border-radius:24px; padding:32px 30px; box-shadow:0 18px 40px rgba(60,26,14,0.18); transform:rotate(0.8deg); display:flex; flex-direction:column; gap:16px; margin-top:18px">
           <span style="font-family:'Caveat',cursive; font-weight:700; font-size:54px; line-height:0.5; color:#c56138; padding-top:14px">“</span>
-          <p style="margin:0; font-size:15.5px; line-height:1.6; color:#3a3328; font-style:italic; text-wrap:pretty">It was a real pleasure working with Mathew! Excellent communication from the start, very professional, and he followed all the guidelines perfectly. The video quality is amazing. Highly recommended!</p>
-          <span style="font-family:'Caveat',cursive; font-weight:600; font-size:20px; color:#c56138; transform:rotate(-1.5deg); display:inline-block">★★★★★ 5/5</span>
+          <p style="margin:0; font-size:15.5px; line-height:1.6; color:#3a3328; font-style:italic; text-wrap:pretty">Client quote goes here — about the fast turnaround, the extra hook options, the easy revisions.</p>
           <div style="margin-top:auto; padding-top:8px; border-top:1px solid #e4dcc9">
-            <span style="display:block; font-family:'Montserrat',sans-serif; font-weight:600; font-size:14px; color:#1f1b14">Lucia</span>
-            <span style="font-size:12.5px; color:#6b6354">Adsmurai</span>
+            <span style="display:block; font-family:'Montserrat',sans-serif; font-weight:600; font-size:14px; color:#1f1b14">Client name</span>
+            <span style="font-size:12.5px; color:#6b6354">Role · Brand</span>
           </div>
         </div>
         <div data-rv="pop" data-rv-delay="180" style="background:#fffaf1; border-radius:24px; padding:32px 30px; box-shadow:0 18px 40px rgba(60,26,14,0.18); transform:rotate(-0.6deg); display:flex; flex-direction:column; gap:16px">
           <span style="font-family:'Caveat',cursive; font-weight:700; font-size:54px; line-height:0.5; color:#c56138; padding-top:14px">“</span>
-          <p style="margin:0; font-size:15.5px; line-height:1.6; color:#3a3328; font-style:italic; text-wrap:pretty">Working with Mathew was a real pleasure. He is a very professional, proactive, and creative collaborator. He provides quality material on time and as agreed. I would highly recommend using his services!</p>
-          <span style="font-family:'Caveat',cursive; font-weight:600; font-size:20px; color:#c56138; transform:rotate(-1.5deg); display:inline-block">★★★★★ 5/5</span>
+          <p style="margin:0; font-size:15.5px; line-height:1.6; color:#3a3328; font-style:italic; text-wrap:pretty">Client quote goes here — the “we're booking him again next quarter” one.</p>
           <div style="margin-top:auto; padding-top:8px; border-top:1px solid #e4dcc9">
-            <span style="display:block; font-family:'Montserrat',sans-serif; font-weight:600; font-size:14px; color:#1f1b14">Martina Roginic</span>
-            <span style="font-size:12.5px; color:#6b6354">Client</span>
+            <span style="display:block; font-family:'Montserrat',sans-serif; font-weight:600; font-size:14px; color:#1f1b14">Client name</span>
+            <span style="font-size:12.5px; color:#6b6354">Role · Brand</span>
           </div>
         </div>
       </div>
@@ -527,18 +519,18 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 const VIDEOS = [
-  { brand: 'KiloCode', cat: 'Tech', meta: 'Talking head · product demo', livid: '_mHs2v7ED7Dl', thumb: 'assets/thumbs/kilocode.jpg' },
-  { brand: 'vFlat Scan', cat: 'Tech', meta: 'Talking head · product demo', livid: 'DWi4MELLKCnt', thumb: 'assets/thumbs/vflat.jpg' },
-  { brand: 'Constant Contact', cat: 'SaaS', meta: 'UGC · product demo', livid: 'BrACFOf5w0Ag', thumb: 'assets/thumbs/constant-contact-1.jpg' },
-  { brand: 'Axel AI', cat: 'Tech', meta: 'B-roll · voiceover', livid: 'H1tWDlsT9nbC', thumb: 'assets/thumbs/axel-ai.jpg' },
-  { brand: 'Marblism', cat: 'Tech', meta: 'Talking head · product demo', livid: 'IWRJv_sSno3x', thumb: 'assets/thumbs/marblism.jpg' },
-  { brand: 'Constant Contact', cat: 'SaaS', meta: 'Talking head · subs', livid: 'FNkXO7lkhPMH', thumb: 'assets/thumbs/constant-contact-2.jpg' },
-  { brand: 'Proats', cat: 'Food / Lifestyle', meta: 'Talking head · B-roll', livid: 'XuRH8vK-OK5e', thumb: 'assets/thumbs/proats.jpg' },
-  { brand: 'Flashfood', cat: 'Food / Lifestyle', meta: 'Talking head · B-roll', livid: 'X_1b2zAxz9Um', thumb: 'assets/thumbs/flashfood.jpg' },
-  { brand: 'Wonderdog', cat: 'Lifestyle', meta: 'Talking head · captions', livid: 'RotbGVxmYshI', thumb: 'assets/thumbs/wonderdog.jpg' },
-  { brand: 'HolaFly', cat: 'Travel', meta: 'Talking head · B-roll', livid: 'NW4XdUfqY_97', thumb: 'assets/thumbs/holafly.jpg' },
-  { brand: 'GoMoWorld', cat: 'Travel', meta: 'Talking head · B-roll', livid: 'G8vVQD5Rktb3', thumb: 'assets/thumbs/gomoworld.jpg' },
-  { brand: 'Interac Debit', cat: 'Finance', meta: 'UGC · talking head', livid: 'oEMhv5ihChgp', thumb: 'assets/thumbs/interac.jpg' },
+  { brand: 'KiloCode', cat: 'Tech', meta: 'Talking head · product demo', livid: '_mHs2v7ED7Dl' },
+  { brand: 'vFlat Scan', cat: 'Tech', meta: 'Talking head · product demo', livid: 'DWi4MELLKCnt' },
+  { brand: 'Constant Contact', cat: 'SaaS', meta: 'UGC · product demo', livid: 'BrACFOf5w0Ag' },
+  { brand: 'Axel AI', cat: 'Tech', meta: 'B-roll · voiceover', livid: 'H1tWDlsT9nbC' },
+  { brand: 'Marblism', cat: 'Tech', meta: 'Talking head · product demo', livid: 'IWRJv_sSno3x' },
+  { brand: 'Constant Contact', cat: 'SaaS', meta: 'Talking head · subs', livid: 'FNkXO7lkhPMH' },
+  { brand: 'Proats', cat: 'Food / Lifestyle', meta: 'Talking head · B-roll', livid: 'XuRH8vK-OK5e' },
+  { brand: 'Flashfood', cat: 'Food / Lifestyle', meta: 'Talking head · B-roll', livid: 'X_1b2zAxz9Um' },
+  { brand: 'Wonderdog', cat: 'Lifestyle', meta: 'Talking head · captions', livid: 'RotbGVxmYshI' },
+  { brand: 'HolaFly', cat: 'Travel', meta: 'Talking head · B-roll', livid: 'NW4XdUfqY_97' },
+  { brand: 'GoMoWorld', cat: 'Travel', meta: 'Talking head · B-roll', livid: 'G8vVQD5Rktb3' },
+  { brand: 'Interac Debit', cat: 'Finance', meta: 'UGC · talking head', livid: 'oEMhv5ihChgp' },
 ];
 
 const BRANDS = ['Korean Air', 'Manus', 'Pelvini', 'West Paw', 'Proats', 'Flashfood', 'Wonderdog', 'Luma', 'Zwilling', 'JobWizard.ai', 'vFlat', 'KiloCode', 'HolaFly', 'GoMoWorld', 'Constant Contact', 'Marblism', 'Interac', 'Storylane', 'Okanagan Hound', 'Tavendi', 'Axel AI', 'notta AI', 'HeartMoments', 'ScoreGO'];
@@ -889,24 +881,19 @@ class Component extends DCLogic {
     const shown = VIDEOS.filter((v) => activeFilter === 'All' ? true : bucketOf(v) === activeFilter);
     const videos = shown.map((v, i) => {
       const playUrl = v.livid
-        ? 'https://livid.com/embed/' + v.livid + '?autoplay=1'
+        ? 'https://livid.com/embed/' + v.livid
         : (v.id ? 'https://www.youtube-nocookie.com/embed/' + v.id + '?autoplay=1&rel=0&playsinline=1' : null);
       const hasVid = !!playUrl;
-      const isPlaying = !!this.state.playing[i];
       return {
         brand: v.brand,
         cat: v.cat,
         meta: v.meta,
         initial: v.slot ? '+' : v.brand.charAt(0),
-        thumb: v.thumb || (v.id ? 'https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg' : null),
+        thumb: v.id ? 'https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg' : null,
         showPlay: hasVid,
         showNote: !hasVid,
         cursor: hasVid ? 'pointer' : 'default',
-        playing: isPlaying,
-        showContent: !isPlaying,
-        playUrl: playUrl,
-        onPlay: hasVid ? () => this.setState((s) => ({ playing: { ...s.playing, [i]: true } })) : undefined,
-        onStop: (e) => { e.stopPropagation(); this.setState((s) => ({ playing: { ...s.playing, [i]: false } })); },
+        onPlay: hasVid ? () => this.openLightbox(playUrl, v) : undefined,
         delay: (i % 4) * 70,
       };
     });
