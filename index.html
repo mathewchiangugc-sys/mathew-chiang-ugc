@@ -179,27 +179,33 @@
 
       <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap:clamp(14px, 2vw, 22px); animation:{{ gridAnim }}">
         <sc-for list="{{ videos }}" as="v" hint-placeholder-count="16">
-          <div data-rv="pop" data-rv-delay="{{ v.delay }}" onClick="{{ v.onPlay }}" style="position:relative; aspect-ratio:9/16; border-radius:18px; overflow:hidden; background:#3c4a36; border:1px solid rgba(255,253,246,0.08); cursor:{{ v.cursor }}; transition:transform 240ms cubic-bezier(0.22,1,0.36,1), box-shadow 240ms cubic-bezier(0.22,1,0.36,1)" style-hover="transform:translateY(-5px); box-shadow:0 18px 40px rgba(0,0,0,0.3)">
-              <div style="position:absolute; inset:0">
-                <sc-if value="{{ v.thumb }}" hint-placeholder-val="{{ false }}">
-                  <div role="img" aria-label="{{ v.brand }}" style="position:absolute; inset:0; background-image:url('{{ v.thumb }}'); background-size:cover; background-position:center"></div>
-                </sc-if>
-                <sc-if value="{{ v.showNote }}" hint-placeholder-val="{{ true }}">
-                  <span style="position:absolute; top:50%; left:50%; transform:translate(-50%,-58%); font-family:'Montserrat',sans-serif; font-weight:600; font-size:120px; color:rgba(255,253,246,0.07); line-height:1">{{ v.initial }}</span>
-                </sc-if>
-                <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(26,22,17,0.12) 0%, rgba(26,22,17,0) 35%, rgba(26,22,17,0) 55%, rgba(26,22,17,0.78) 100%)"></div>
-                <span style="position:absolute; top:14px; left:14px; font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#fffdf6; background:rgba(31,27,20,0.45); backdrop-filter:blur(6px); padding:5px 12px; border-radius:999px">{{ v.cat }}</span>
-                <sc-if value="{{ v.showPlay }}" hint-placeholder-val="{{ false }}">
-                  <span style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:62px; height:62px; border-radius:50%; background:#d57b52; box-shadow:0 10px 30px rgba(197,97,56,0.45); display:flex; align-items:center; justify-content:center; color:#fff8f1; font-size:20px; padding-left:4px; box-sizing:border-box">▶</span>
-                </sc-if>
-                <div style="position:absolute; left:16px; right:16px; bottom:14px; display:flex; flex-direction:column; gap:3px">
-                  <span style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:16px; color:#fffdf6">{{ v.brand }}</span>
-                  <span style="font-size:12px; color:rgba(255,253,246,0.66)">{{ v.meta }}</span>
-                  <sc-if value="{{ v.showNote }}" hint-placeholder-val="{{ false }}">
-                    <span style="font-family:'JetBrains Mono',monospace; font-size:10px; color:rgba(255,253,246,0.4); margin-top:4px">video coming soon</span>
+          <div data-rv="pop" data-rv-delay="{{ v.delay }}" style="position:relative; aspect-ratio:9/16; border-radius:18px; overflow:hidden; background:#3c4a36; border:1px solid rgba(255,253,246,0.08); transition:transform 240ms cubic-bezier(0.22,1,0.36,1), box-shadow 240ms cubic-bezier(0.22,1,0.36,1)" style-hover="transform:translateY(-5px); box-shadow:0 18px 40px rgba(0,0,0,0.3)">
+              <sc-if value="{{ v.playing }}" hint-placeholder-val="{{ false }}">
+                <iframe src="{{ v.playUrl }}" title="{{ v.brand }}" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture; playsinline" allowfullscreen style="position:absolute; inset:0; width:100%; height:100%; border:none"></iframe>
+                <button onClick="{{ v.onStop }}" aria-label="Close video" style="position:absolute; top:10px; right:10px; z-index:10; width:36px; height:36px; border-radius:50%; background:rgba(31,27,20,0.55); border:1px solid rgba(255,253,246,0.3); color:#fffdf6; font-size:15px; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; transition:background 200ms" style-hover="background:rgba(31,27,20,0.85)">✕</button>
+              </sc-if>
+              <sc-if value="{{ v.showContent }}" hint-placeholder-val="{{ true }}">
+                <div onClick="{{ v.onPlay }}" style="position:absolute; inset:0; cursor:{{ v.cursor }}">
+                  <sc-if value="{{ v.thumb }}" hint-placeholder-val="{{ false }}">
+                    <div role="img" aria-label="{{ v.brand }}" style="position:absolute; inset:0; background-image:url('{{ v.thumb }}'); background-size:cover; background-position:center"></div>
                   </sc-if>
+                  <sc-if value="{{ v.showNote }}" hint-placeholder-val="{{ true }}">
+                    <span style="position:absolute; top:50%; left:50%; transform:translate(-50%,-58%); font-family:'Montserrat',sans-serif; font-weight:600; font-size:120px; color:rgba(255,253,246,0.07); line-height:1">{{ v.initial }}</span>
+                  </sc-if>
+                  <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(26,22,17,0.12) 0%, rgba(26,22,17,0) 35%, rgba(26,22,17,0) 55%, rgba(26,22,17,0.78) 100%)"></div>
+                  <span style="position:absolute; top:14px; left:14px; font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#fffdf6; background:rgba(31,27,20,0.45); backdrop-filter:blur(6px); padding:5px 12px; border-radius:999px">{{ v.cat }}</span>
+                  <sc-if value="{{ v.showPlay }}" hint-placeholder-val="{{ false }}">
+                    <span style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:62px; height:62px; border-radius:50%; background:#d57b52; box-shadow:0 10px 30px rgba(197,97,56,0.45); display:flex; align-items:center; justify-content:center; color:#fff8f1; font-size:20px; padding-left:4px; box-sizing:border-box">▶</span>
+                  </sc-if>
+                  <div style="position:absolute; left:16px; right:16px; bottom:14px; display:flex; flex-direction:column; gap:3px">
+                    <span style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:16px; color:#fffdf6">{{ v.brand }}</span>
+                    <span style="font-size:12px; color:rgba(255,253,246,0.66)">{{ v.meta }}</span>
+                    <sc-if value="{{ v.showNote }}" hint-placeholder-val="{{ false }}">
+                      <span style="font-family:'JetBrains Mono',monospace; font-size:10px; color:rgba(255,253,246,0.4); margin-top:4px">video coming soon</span>
+                    </sc-if>
+                  </div>
                 </div>
-              </div>
+              </sc-if>
           </div>
         </sc-for>
       </div>
@@ -881,9 +887,10 @@ class Component extends DCLogic {
     const shown = VIDEOS.filter((v) => activeFilter === 'All' ? true : bucketOf(v) === activeFilter);
     const videos = shown.map((v, i) => {
       const playUrl = v.livid
-        ? 'https://livid.com/embed/' + v.livid
+        ? 'https://lvid.com/embed/' + v.livid + '?autoplay=1'
         : (v.id ? 'https://www.youtube-nocookie.com/embed/' + v.id + '?autoplay=1&rel=0&playsinline=1' : null);
       const hasVid = !!playUrl;
+      const isPlaying = !!this.state.playing[i];
       return {
         brand: v.brand,
         cat: v.cat,
@@ -893,7 +900,11 @@ class Component extends DCLogic {
         showPlay: hasVid,
         showNote: !hasVid,
         cursor: hasVid ? 'pointer' : 'default',
-        onPlay: hasVid ? () => this.openLightbox(playUrl, v) : undefined,
+        playing: isPlaying,
+        showContent: !isPlaying,
+        playUrl: playUrl,
+        onPlay: hasVid ? () => this.setState((s) => ({ playing: { ...s.playing, [i]: true } })) : undefined,
+        onStop: (e) => { e.stopPropagation(); this.setState((s) => ({ playing: { ...s.playing, [i]: false } })); },
         delay: (i % 4) * 70,
       };
     });
